@@ -132,6 +132,56 @@ body {
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .scrollbar-none { scrollbar-width: none; }
 
+/* Warm light sweep — a brass-tinted highlight glides diagonally across an
+   element on hover. Used on dish cards. */
+.warm-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.warm-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(176, 141, 76, 0.18) 50%,
+    rgba(242, 233, 216, 0.14) 55%,
+    transparent 65%,
+    transparent 100%
+  );
+  transform: translateX(-110%);
+  transition: transform 1.1s var(--ease);
+  mix-blend-mode: screen;
+}
+.warm-sweep:hover::after,
+.group:hover .warm-sweep::after {
+  transform: translateX(110%);
+}
+
+/* Slow candle flicker for ornaments + small ambient elements */
+.candle-flicker {
+  animation: candleFlicker 4s ease-in-out infinite;
+}
+@keyframes candleFlicker {
+  0%, 100% { opacity: 1;   filter: brightness(1); }
+  25%      { opacity: 0.92; filter: brightness(0.94); }
+  55%      { opacity: 1;   filter: brightness(1.06); }
+  78%      { opacity: 0.96; filter: brightness(0.98); }
+}
+
+/* Slow ken-burns pan for atmospheric photographs */
+.ken-burns {
+  animation: kenBurns 26s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+@keyframes kenBurns {
+  0%   { transform: scale(1.05) translate(-1%, 1%); }
+  100% { transform: scale(1.10) translate(1%, -1%); }
+}
+
 /* Focus visibility */
 :focus-visible { outline: 2px solid var(--brass); outline-offset: 4px; }
 
