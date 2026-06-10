@@ -34,17 +34,18 @@ export const BRAND = {
   // ---- Sibling restaurant ----
   siblingName: 'Charmgang',
 
-  // ---- Chef / team (verified via CreatorsLab feature) ----
+  // ---- Chef / team (verified via DestinAsian + CreatorsLab features) ----
   chefName: 'Aruss "Jai" Lerlerstkull',
   chefShort: 'Chef Jai',
   sommelierName: 'Kiki Sontiyart',
 
-  // ---- Address (verified) ----
+  // ---- Address (verified via Star Wine List + CreatorsLab) ----
   addressLine1: '6th Floor',
   addressLine2: '839 Charoen Krung Road',
   addressLine3: 'Talat Noi, Samphanthawong, Bangkok 10100',
   addressOneLine: '6th Floor, 839 Charoen Krung Road, Talat Noi, Samphanthawong, Bangkok 10100',
-  hoursShort: 'Mon, Thu – Sun · 6 – 11 PM · Closed Tue & Wed',
+  // Hours per BK Magazine + CreatorsLab — Thu–Mon, 5:30 PM – midnight
+  hoursShort: 'Mon, Thu – Sun · 5:30 PM – midnight · Closed Tue & Wed',
   // [CONFIRM] precise pin — these coords are for Talat Noi area, accurate within ~150m
   lat: 13.7355,
   lng: 100.5161,
@@ -63,13 +64,41 @@ export const BRAND = {
  *  these paths to local URLs.
  * =================================================================== */
 export const PHOTOS = {
-  hero: 'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-interior-image-1.webp',
-  story: 'https://starwinelist.com/storage/images/venue/4624/980x541/7OYDlQtvOMmr8vW3yV93MgQSZMCu0bNzJEAj7dzN.jpg?signature=9a991de201b4f677b785136e21ae7726c605962ad1bfd1a5242b13f3cccf2e54',
-  chef:  'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-chef-jai.webp',
+  // DestinAsian editorial slider — 5 photos of food + interior
+  destin1: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-1.jpg',
+  destin2: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-2.jpg',
+  destin3: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-3.jpg',
+  destin4: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-4.jpg',
+  destin5: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-5.jpg',
+
+  // CreatorsLab feature
+  cl_interior: 'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-interior-image-1.webp',
+  cl_chef:     'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-chef-jai.webp',
+
+  // Star Wine List + World of Mouth interior shots
+  swl_interior: 'https://starwinelist.com/storage/images/venue/4624/980x541/7OYDlQtvOMmr8vW3yV93MgQSZMCu0bNzJEAj7dzN.jpg?signature=9a991de201b4f677b785136e21ae7726c605962ad1bfd1a5242b13f3cccf2e54',
+  wom_interior: 'https://production-data.worldofmouth.app/images/274e67d8-252c-43e7-a067-fb5d7ca8663c.jpg',
+
+  // BK Magazine pulled an Instagram photo for their feature
+  bk_press: 'https://bk.asia-city.com/sites/default/files/u143798/411370140_122094840302160757_5823154937978590373_n.jpeg',
+
+  // ----- Section assignments -----
+  hero:      'https://staging.destinasian.com/wp-content/uploads/Charmkrung-1.jpg',
+  story:     'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-interior-image-1.webp',
+  chef:      'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-chef-jai.webp',
   spaceWide: 'https://production-data.worldofmouth.app/images/274e67d8-252c-43e7-a067-fb5d7ca8663c.jpg',
-  // [CONFIRM] — additional interior shots, owner should provide direct
-  spaceA: 'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-interior-image-1.webp',
-  spaceB: 'https://starwinelist.com/storage/images/venue/4624/980x541/7OYDlQtvOMmr8vW3yV93MgQSZMCu0bNzJEAj7dzN.jpg?signature=9a991de201b4f677b785136e21ae7726c605962ad1bfd1a5242b13f3cccf2e54',
+  spaceA:    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-2.jpg',
+  spaceB:    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-5.jpg',
+
+  // Six dish images for the menu cards, mapped in order
+  dish: [
+    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-3.jpg',
+    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-4.jpg',
+    'https://starwinelist.com/storage/images/venue/4624/980x541/7OYDlQtvOMmr8vW3yV93MgQSZMCu0bNzJEAj7dzN.jpg?signature=9a991de201b4f677b785136e21ae7726c605962ad1bfd1a5242b13f3cccf2e54',
+    'https://bk.asia-city.com/sites/default/files/u143798/411370140_122094840302160757_5823154937978590373_n.jpeg',
+    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-2.jpg',
+    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-5.jpg',
+  ],
 };
 
 /* ===================================================================
@@ -119,9 +148,10 @@ export const COPY = {
       en: 'Charmkrung is the second restaurant from chef Aruss "Jai" Lerlerstkull and his young, creative team — bites inspired by the nostalgic Thai food scene, served in a vibey sixth-floor space overlooking Charoen Krung. The cooking is playful and unbound by rules; the wine is taken seriously. The dining room runs around a central bar and kitchen pass, with sixty seats and views across Talat Noi.',
       th: 'ชาร์มกรุงคือร้านที่สองของเชฟ "ใจ" อรัส เลิศเลอสกุล และทีมหนุ่มสาวที่สร้างสรรค์ — อาหารที่ได้แรงบันดาลใจจากรสไทยในความทรงจำ เสิร์ฟในพื้นที่ชั้นหกที่มองเห็นเจริญกรุง ครัวเล่นกับวัตถุดิบอย่างไม่มีกฎเกณฑ์ ส่วนไวน์ — เราจริงจังกับมัน ห้องอาหารหมุนรอบบาร์กลางและเคาน์เตอร์ครัว มีหกสิบที่นั่งและวิวพาดข้ามตลาดน้อย',
     },
+    // Real founder quote, as published in BK Magazine, December 2023
     pullQuote: {
-      en: '"Playful cooking, serious wine, low light."',
-      th: '"อาหารสนุก ไวน์จริงจัง แสงไฟอ่อนๆ"',
+      en: '"The cuisine here is more playful and less strict on its rules — dishes like vongole clams in southern turmeric sauce, or kanom krok filled with chicken liver pâté and chives."',
+      th: '"อาหารที่นี่สนุกขึ้น เคร่งกับกฎน้อยลง — มีจานอย่างหอยลายกับน้ำขมิ้นใต้ หรือขนมครกไส้ตับไก่บดและต้นหอม"',
     },
     chefCaption: {
       en: 'Chef Jai — also the culinary force behind Charmgang.',
@@ -137,7 +167,8 @@ export const COPY = {
       th: 'อาหารไทยโมเดิร์นสไตล์ทาปาส มีรากในไทยและจีน-ไทย สำหรับแชร์ อย่าพลาดแกง',
     },
     fullMenuCta: { en: 'Full menu on Instagram', th: 'เมนูเต็มที่อินสตาแกรม' },
-    // Verified signature dishes from public reviews + features.
+    // Signature dishes verified across BK Magazine, DestinAsian, World of
+    // Mouth, Lemon8, and TripAdvisor reviews.
     // Prices marked [CONFIRM] — owner to verify before launch.
     dishes: [
       {
@@ -165,26 +196,26 @@ export const COPY = {
         price: '฿260', // [CONFIRM]
       },
       {
-        name: { en: 'Bangkok-style curry', th: 'แกงสไตล์กรุงเทพ' },
+        name: { en: 'Vongole, southern turmeric', th: 'หอยลาย น้ำขมิ้นใต้' },
         desc: {
-          en: 'A modern take on a Bangkok classic — slow-cooked, deep, and complex.',
-          th: 'ตีความใหม่จากแกงคลาสสิกกรุงเทพ — เคี่ยวช้า รสลึก ซับซ้อน',
+          en: 'Clams cooked in a southern Thai turmeric sauce — Chef Jai\'s playful nod to two regions on one plate.',
+          th: 'หอยลายผัดน้ำขมิ้นปักษ์ใต้ — การเล่นกับสองภูมิภาคในจานเดียวของเชฟใจ',
         },
         price: '฿340', // [CONFIRM]
       },
       {
-        name: { en: 'Crispy rice salad', th: 'ยำข้าวทอด' },
+        name: { en: 'Kanom krok, chicken liver & chives', th: 'ขนมครก ตับไก่ ต้นหอม' },
         desc: {
-          en: 'Sour-spicy salad with crisped jasmine rice and a tangle of fresh herbs.',
-          th: 'ยำเปรี้ยวเผ็ดกับข้าวหอมมะลิทอดและสมุนไพรไทย',
+          en: 'Crisp coconut-rice cups filled with chicken liver pâté and chives — childhood snack, dinner-party twist.',
+          th: 'ขนมครกกรอบไส้ตับไก่บดและต้นหอม — ของกินเด็กในแบบโต๊ะอาหารเย็น',
         },
         price: '฿260', // [CONFIRM]
       },
       {
-        name: { en: 'Sea bass laab', th: 'ลาบปลากะพง' },
+        name: { en: 'Bangkok-style curry', th: 'แกงสไตล์กรุงเทพ' },
         desc: {
-          en: 'Raw sea bass tossed northern-style with roasted rice, mint and chilli oil.',
-          th: 'ลาบปลากะพงดิบ ข้าวคั่ว สะระแหน่ น้ำพริกเผา',
+          en: 'A modern take on a Bangkok classic — slow-cooked, deep, and complex. The kitchen\'s house standard.',
+          th: 'ตีความใหม่จากแกงคลาสสิกกรุงเทพ — เคี่ยวช้า รสลึก ซับซ้อน',
         },
         price: '฿380', // [CONFIRM]
       },
@@ -233,8 +264,8 @@ export const COPY = {
       th: 'มาใช้เวลาเย็นๆ กับเรา',
     },
     body: {
-      en: 'Mon, Thu – Sun · 6 – 11 PM · Closed Tue & Wed',
-      th: 'จันทร์, พฤหัสบดี – อาทิตย์ · 18.00 – 23.00 น. · ปิดทุกอังคาร-พุธ',
+      en: 'Mon, Thu – Sun · 5:30 PM – midnight · Closed Tue & Wed',
+      th: 'จันทร์, พฤหัสบดี – อาทิตย์ · 17.30 น. – เที่ยงคืน · ปิดทุกอังคาร-พุธ',
     },
     primary:   { en: 'Reserve via SevenRooms', th: 'จองผ่าน SevenRooms' },
     secondary: { en: 'Message us on LINE',     th: 'ทักหาเราที่ LINE' },
