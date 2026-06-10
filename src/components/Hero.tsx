@@ -5,10 +5,13 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { useRef } from 'react';
 import { BRAND, COPY, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
+import LetterReveal from './LetterReveal';
+import CursorCandle from './CursorCandle';
 
 /**
  * HERO — full-viewport candle-lit factory loft.
- * Real interior photograph behind a warm legibility wash.
+ * Photo behind a warm legibility wash. Title reveals letter-by-letter.
+ * A soft candle-glow halo follows the cursor inside the hero (desktop only).
  */
 export default function Hero() {
   const { locale } = useLocale();
@@ -20,28 +23,33 @@ export default function Hero() {
     offset: ['start start', 'end start'],
   });
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
   const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.35]);
 
   return (
     <section
       id="top"
       ref={ref}
+      data-candle
       className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-espresso"
     >
+      <CursorCandle />
+
       <motion.div
-        style={prefersReduced ? undefined : { y, opacity }}
+        style={prefersReduced ? undefined : { y, scale, opacity }}
         className="absolute inset-0"
       >
-        <Image
-          src={PHOTOS.hero}
-          alt="Charmkrung — sixth-floor 1950s factory interior at night, Charoen Krung, Bangkok"
-          fill
-          priority
-          sizes="100vw"
-          quality={88}
-          className="object-cover object-center"
-        />
-        {/* warm legibility wash */}
+        <div className={prefersReduced ? 'absolute inset-0' : 'absolute inset-0 ken-burns'}>
+          <Image
+            src={PHOTOS.hero}
+            alt="Charmkrung — sixth-floor 1950s factory interior at night, Charoen Krung, Bangkok"
+            fill
+            priority
+            sizes="100vw"
+            quality={88}
+            className="object-cover object-center"
+          />
+        </div>
         <div
           className="absolute inset-0"
           style={{
@@ -60,33 +68,33 @@ export default function Hero() {
 
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
         <motion.p
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
-          className="eyebrow text-brass mb-7"
+          initial={prefersReduced ? false : { opacity: 0, letterSpacing: '0.6em' }}
+          animate={{ opacity: 1, letterSpacing: '0.32em' }}
+          transition={{ duration: 1.6, delay: 0.15, ease: [0.22, 0.61, 0.36, 1] }}
+          className="font-sans uppercase mb-7 text-brass"
+          style={{ fontSize: 11, fontWeight: 500 }}
           lang={locale}
         >
           {COPY.hero.eyebrow[locale]}
         </motion.p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.4, delay: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
+        <LetterReveal
+          as="h1"
+          text={COPY.hero.title[locale]}
+          delay={0.45}
+          stagger={0.025}
           className="display text-cream max-w-[18ch] leading-[1.02]"
           style={{
             fontSize: 'clamp(38px, 6.6vw, 100px)',
             textShadow: '0 2px 20px rgba(0,0,0,0.55)',
           }}
           lang={locale}
-        >
-          {COPY.hero.title[locale]}
-        </motion.h1>
+        />
 
         <motion.p
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
+          transition={{ duration: 1.2, delay: 1.6, ease: [0.22, 0.61, 0.36, 1] }}
           className="font-sans text-[14.5px] text-cream/85 leading-relaxed max-w-2xl mt-8"
           lang={locale}
           style={{ textShadow: '0 1px 12px rgba(0,0,0,0.6)' }}
@@ -97,7 +105,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, delay: 0.95 }}
+          transition={{ duration: 1.0, delay: 1.9 }}
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
@@ -122,7 +130,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 1 }}
+        transition={{ delay: 2.4, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
       >
         <span className="text-cream/70 text-[10px] tracking-[0.32em] uppercase" lang={locale}>

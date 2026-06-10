@@ -41,7 +41,7 @@ export default function Menu() {
               <article className="group">
                 {/* Real press photograph — pulls one of the dish slots from
                     PHOTOS.dish[]. Vary the alt to describe each dish. */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-espresso-soft">
+                <div className="relative aspect-[4/3] overflow-hidden bg-espresso-soft warm-sweep">
                   <Image
                     src={PHOTOS.dish[i % PHOTOS.dish.length]}
                     alt={`${dish.name.en} — Charmkrung`}
