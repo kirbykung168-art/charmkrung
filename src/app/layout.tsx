@@ -102,10 +102,11 @@ const RESTAURANT_JSONLD = {
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      // Verified via CreatorsLab — closed Tue/Wed
+      // Verified via BK Magazine + CreatorsLab — Thu/Mon, 5:30pm – midnight,
+      // closed Tue/Wed.
       dayOfWeek: ['Monday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '18:00',
-      closes: '23:00',
+      opens: '17:30',
+      closes: '23:59',
     },
   ],
   sameAs: [
