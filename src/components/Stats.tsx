@@ -9,11 +9,41 @@ import CountUp from './CountUp';
  * STATS — a quiet four-up band between Story and Menu. Big tabular
  * numbers count up on scroll; brass hairline under each label.
  */
-const STATS = [
-  { value: 60,  label: { en: 'Seats',           th: 'ที่นั่ง' } },
-  { value: 200, label: { en: 'Wines on the list', th: 'ไวน์ในลิสต์' },  suffix: '+' },
-  { value: 6,   label: { en: 'Storeys up',      th: 'ชั้น' },             prefix: '#' },
-  { value: 1950,label: { en: 'Factory vintage', th: 'อาคารยุค' } },
+/**
+ * Each stat either counts up to a real number or shows static text.
+ * Static items (years, awards) display verbatim; only quantities animate.
+ */
+type Stat = {
+  label: { en: string; th: string };
+} & (
+  | { kind: 'count'; value: number; prefix?: string; suffix?: string }
+  | { kind: 'static'; display: string }
+);
+
+const STATS: Stat[] = [
+  {
+    kind: 'count',
+    value: 60,
+    label: { en: 'Seats', th: 'ที่นั่ง' },
+  },
+  {
+    // Star Wine List of the Year — Best Short List Southeast Asia 2026.
+    // Verified at starwinelist.com/wine-place/charmkrung.
+    kind: 'static',
+    display: 'SWL ’26',
+    label: { en: 'Best Short List · SE Asia', th: 'รายชื่อยอดเยี่ยม · เอเชียตะวันออกเฉียงใต้' },
+  },
+  {
+    kind: 'count',
+    value: 6,
+    prefix: '#',
+    label: { en: 'Storeys up', th: 'ชั้น' },
+  },
+  {
+    kind: 'static',
+    display: '1950s',
+    label: { en: 'Factory vintage', th: 'อาคารยุค' },
+  },
 ];
 
 export default function Stats() {
@@ -27,11 +57,17 @@ export default function Stats() {
               <div className="text-center lg:text-left">
                 <p
                   className="display text-cream leading-none"
-                  style={{ fontSize: 'clamp(40px, 5vw, 70px)' }}
+                  style={{ fontSize: 'clamp(36px, 4.6vw, 64px)' }}
                 >
-                  {s.prefix ?? ''}
-                  <CountUp to={s.value} duration={1.8} />
-                  {s.suffix ?? ''}
+                  {s.kind === 'count' ? (
+                    <>
+                      {s.prefix ?? ''}
+                      <CountUp to={s.value} duration={1.8} />
+                      {s.suffix ?? ''}
+                    </>
+                  ) : (
+                    s.display
+                  )}
                 </p>
                 <span className="block w-10 h-px bg-brass mt-4 mx-auto lg:mx-0" />
                 <p

@@ -69,6 +69,14 @@ export default function Wine() {
               </li>
             ))}
           </ul>
+          {/* Sommelier credit — Kiki Sontiyart leads the wine programme.
+              Verified via Star Wine List. */}
+          <p
+            className="font-sans text-[11px] uppercase tracking-[0.32em] text-brass mt-10"
+            lang={locale}
+          >
+            {COPY.wine.credit[locale]}
+          </p>
         </Reveal>
       </div>
     </section>
