@@ -102,7 +102,8 @@ const RESTAURANT_JSONLD = {
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      // Verified via CreatorsLab — closed Tue/Wed
+      dayOfWeek: ['Monday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       opens: '18:00',
       closes: '23:00',
     },
