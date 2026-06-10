@@ -1,17 +1,14 @@
 'use client';
 
-import { BRAND, COPY } from '@/lib/content';
+import Image from 'next/image';
+import { BRAND, COPY, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
 /**
- * MENU — dark section. Dish cards in a 1-up (mobile), 2-up (tablet),
- * 3-up (desktop) grid. Each card: warm placeholder plate + name +
- * description + price + a brass underline that draws in on hover.
- *
- * Placeholder dish "photos" are radial gradients in stone/oxblood/brass
- * tones, mood-matched to each dish. Swap with /public/images/dishes/* once
- * owner photography arrives.
+ * MENU — dish cards on espresso. Each card pairs a real press
+ * photograph with the dish name, description, and price. The
+ * brass hairline draws in on hover.
  */
 export default function Menu() {
   const { locale } = useLocale();
@@ -42,11 +39,27 @@ export default function Menu() {
           {COPY.menu.dishes.map((dish, i) => (
             <Reveal key={i} delay={(i % 3) * 0.07}>
               <article className="group">
-                {/* Plate placeholder */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <DishPlateholder index={i} />
-                  <span className="absolute pointer-events-none" style={{ top: 10, left: 10, width: 18, height: 18, borderTop: '1px solid rgba(176,141,76,0.55)', borderLeft: '1px solid rgba(176,141,76,0.55)' }} />
-                  <span className="absolute pointer-events-none" style={{ bottom: 10, right: 10, width: 18, height: 18, borderBottom: '1px solid rgba(176,141,76,0.55)', borderRight: '1px solid rgba(176,141,76,0.55)' }} />
+                {/* Real press photograph — pulls one of the dish slots from
+                    PHOTOS.dish[]. Vary the alt to describe each dish. */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-espresso-soft">
+                  <Image
+                    src={PHOTOS.dish[i % PHOTOS.dish.length]}
+                    alt={`${dish.name.en} — Charmkrung`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    quality={86}
+                    className="object-cover object-center transition-transform duration-[1800ms] ease-elegant group-hover:scale-[1.04]"
+                  />
+                  {/* warm vignette */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        'linear-gradient(180deg, rgba(26,22,20,0) 0%, rgba(26,22,20,0) 60%, rgba(26,22,20,0.55) 100%)',
+                    }}
+                  />
+                  <span className="absolute pointer-events-none" style={{ top: 10, left: 10, width: 18, height: 18, borderTop: '1px solid rgba(176,141,76,0.65)', borderLeft: '1px solid rgba(176,141,76,0.65)' }} />
+                  <span className="absolute pointer-events-none" style={{ bottom: 10, right: 10, width: 18, height: 18, borderBottom: '1px solid rgba(176,141,76,0.65)', borderRight: '1px solid rgba(176,141,76,0.65)' }} />
                 </div>
 
                 <div className="pt-6 flex items-baseline justify-between gap-4">
@@ -85,28 +98,5 @@ export default function Menu() {
         </Reveal>
       </div>
     </section>
-  );
-}
-
-/**
- * Six mood-matched placeholder "plates" — cycle through warm tones that
- * suggest the dish: curry red, herb green-amber, smoke, citrus, etc.
- */
-function DishPlateholder({ index }: { index: number }) {
-  const tones = [
-    'radial-gradient(closest-side at 50% 40%, #6a2226 0%, #2a1818 65%, #1A1614 100%)', // curry
-    'radial-gradient(closest-side at 50% 40%, #B08D4C 0%, #3a2e1e 65%, #1A1614 100%)', // crispy rice
-    'radial-gradient(closest-side at 50% 40%, #c97a3a 0%, #3a2418 65%, #1A1614 100%)', // grilled
-    'radial-gradient(closest-side at 50% 40%, #8a4a32 0%, #2c1b15 65%, #1A1614 100%)', // smoked
-    'radial-gradient(closest-side at 50% 40%, #5d6e3d 0%, #232b1c 65%, #1A1614 100%)', // herb
-    'radial-gradient(closest-side at 50% 40%, #c98b5e 0%, #3a261b 65%, #1A1614 100%)', // caramel
-  ];
-  return (
-    <div
-      className="absolute inset-0 paper-grain"
-      style={{ background: tones[index % tones.length] }}
-      role="presentation"
-      aria-hidden
-    />
   );
 }
