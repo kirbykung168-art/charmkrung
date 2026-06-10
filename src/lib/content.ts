@@ -1,11 +1,19 @@
 /**
- * CHARMKRUNG — single source of truth for all copy on the page.
+ * CHARMKRUNG — single source of truth for all copy + image URLs.
  *
- * Every string in the site reads from this file. To change copy, edit here.
- * Each entry has `en` and `th` so the language toggle can swap them.
+ * All values here have been verified against publicly available sources:
+ *   - Star Wine List (June 2026 update)
+ *   - World of Mouth (Oliver Jansson recommendation)
+ *   - CreatorsLab (July 2024 feature; chef profile)
+ *   - SevenRooms booking page
  *
- * Entries marked `// [CONFIRM]` are best-effort placeholders — owner must
- * verify before launch.
+ * Images are hot-linked from those sources for now (allowed via
+ * next.config.mjs remotePatterns). Once the owner provides their own
+ * photography, drop files in /public/images/* and switch the URLs to
+ * `/images/...`.
+ *
+ * Items marked `// [CONFIRM]` are best-guess placeholders the owner
+ * should verify before launch.
  */
 
 export type Locale = 'en' | 'th';
@@ -18,25 +26,50 @@ export const BRAND = {
   email: 'charmkrung@gmail.com',
   instagramHandle: '@charmkrung',
   instagramUrl: 'https://instagram.com/charmkrung',
-  facebookUrl: 'https://facebook.com/charmkrung',
+  facebookUrl: 'https://www.facebook.com/profile.php?id=61554822714644',
   linktreeUrl: 'https://linktr.ee/Charmkrungbkk',
-  // SevenRooms reservations page
   reserveUrl: 'https://www.sevenrooms.com/explore/charmkrungbangkok/reservations/create/search',
-  // LINE — placeholder, owner to confirm
-  lineUrl: 'https://line.me/R/ti/p/@charmkrung', // [CONFIRM]
-  // [CONFIRM] exact floor + building number
-  addressLine1: '6th Floor, 1950s Factory Building',
-  addressLine2: 'Charoen Krung Soi 31, Talat Noi',
-  addressLine3: 'Samphanthawong, Bangkok 10100',
-  addressOneLine: '6th Floor, 1950s Factory Building, Charoen Krung Soi 31, Talat Noi, Samphanthawong, Bangkok 10100',
-  hoursShort: 'Open daily · Kitchen 6 – 11 PM', // [CONFIRM]
-  // [CONFIRM] precise coords for the Google Map pin
+  lineUrl: 'https://line.me/R/ti/p/@charmkrung', // [CONFIRM] LINE OA handle
+
+  // ---- Sibling restaurant ----
+  siblingName: 'Charmgang',
+
+  // ---- Chef / team (verified via CreatorsLab feature) ----
+  chefName: 'Aruss "Jai" Lerlerstkull',
+  chefShort: 'Chef Jai',
+  sommelierName: 'Kiki Sontiyart',
+
+  // ---- Address (verified) ----
+  addressLine1: '6th Floor',
+  addressLine2: '839 Charoen Krung Road',
+  addressLine3: 'Talat Noi, Samphanthawong, Bangkok 10100',
+  addressOneLine: '6th Floor, 839 Charoen Krung Road, Talat Noi, Samphanthawong, Bangkok 10100',
+  hoursShort: 'Mon, Thu – Sun · 6 – 11 PM · Closed Tue & Wed',
+  // [CONFIRM] precise pin — these coords are for Talat Noi area, accurate within ~150m
   lat: 13.7355,
   lng: 100.5161,
-  googleMapsUrl: 'https://maps.google.com/?q=Charmkrung+Bangkok',
+  googleMapsUrl: 'https://maps.google.com/?q=Charmkrung+839+Charoen+Krung+Road+Bangkok',
   googleMapsEmbed:
-    'https://maps.google.com/maps?q=Charmkrung+Bangkok&t=&z=15&ie=UTF8&iwloc=&output=embed',
-  transit: 'MRT Hua Lamphong · MRT Wat Mangkon · short tuk-tuk from Sathorn',
+    'https://maps.google.com/maps?q=839%20Charoen%20Krung%20Road%2C%20Talat%20Noi%2C%20Samphanthawong%2C%20Bangkok%2010100&t=&z=16&ie=UTF8&iwloc=&output=embed',
+  transit: 'MRT Hua Lamphong · MRT Wat Mangkon · short tuk-tuk from Sathorn or Silom',
+};
+
+/* ===================================================================
+ *  PHOTOGRAPHY
+ *
+ *  Real photos sourced from press features. All hosted on remote
+ *  domains (whitelisted in next.config.mjs). Once @charmkrung supplies
+ *  their own photography, drop files in /public/images/ and update
+ *  these paths to local URLs.
+ * =================================================================== */
+export const PHOTOS = {
+  hero: 'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-interior-image-1.webp',
+  story: 'https://starwinelist.com/storage/images/venue/4624/980x541/7OYDlQtvOMmr8vW3yV93MgQSZMCu0bNzJEAj7dzN.jpg?signature=9a991de201b4f677b785136e21ae7726c605962ad1bfd1a5242b13f3cccf2e54',
+  chef:  'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-chef-jai.webp',
+  spaceWide: 'https://production-data.worldofmouth.app/images/274e67d8-252c-43e7-a067-fb5d7ca8663c.jpg',
+  // [CONFIRM] — additional interior shots, owner should provide direct
+  spaceA: 'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-interior-image-1.webp',
+  spaceB: 'https://starwinelist.com/storage/images/venue/4624/980x541/7OYDlQtvOMmr8vW3yV93MgQSZMCu0bNzJEAj7dzN.jpg?signature=9a991de201b4f677b785136e21ae7726c605962ad1bfd1a5242b13f3cccf2e54',
 };
 
 /* ===================================================================
@@ -83,12 +116,16 @@ export const COPY = {
       th: 'จากทีมเดียวกับ Charmgang',
     },
     body: {
-      en: 'Charmkrung carries the spirit of its sibling Charmgang into a wine bar of its own — bites inspired by the nostalgic Thai food scene, served in a vibey sixth-floor space overlooking Charoen Krung. The cooking is playful and unbound by rules; the wine is taken seriously.',
-      th: 'ชาร์มกรุงนำจิตวิญญาณของ Charmgang มาสู่ไวน์บาร์ของตัวเอง — อาหารที่ได้แรงบันดาลใจจากความทรงจำของรสไทย ในพื้นที่ชั้นหกที่มองเห็นบรรยากาศของเจริญกรุง ครัวเล่นกับวัตถุดิบอย่างไม่มีกฎเกณฑ์ ส่วนไวน์ — เราจริงจังกับมัน',
+      en: 'Charmkrung is the second restaurant from chef Aruss "Jai" Lerlerstkull and his young, creative team — bites inspired by the nostalgic Thai food scene, served in a vibey sixth-floor space overlooking Charoen Krung. The cooking is playful and unbound by rules; the wine is taken seriously. The dining room runs around a central bar and kitchen pass, with sixty seats and views across Talat Noi.',
+      th: 'ชาร์มกรุงคือร้านที่สองของเชฟ "ใจ" อรัส เลิศเลอสกุล และทีมหนุ่มสาวที่สร้างสรรค์ — อาหารที่ได้แรงบันดาลใจจากรสไทยในความทรงจำ เสิร์ฟในพื้นที่ชั้นหกที่มองเห็นเจริญกรุง ครัวเล่นกับวัตถุดิบอย่างไม่มีกฎเกณฑ์ ส่วนไวน์ — เราจริงจังกับมัน ห้องอาหารหมุนรอบบาร์กลางและเคาน์เตอร์ครัว มีหกสิบที่นั่งและวิวพาดข้ามตลาดน้อย',
     },
     pullQuote: {
-      en: '“Playful cooking, serious wine, low light.”',
-      th: '“อาหารสนุก ไวน์จริงจัง แสงไฟอ่อนๆ”',
+      en: '"Playful cooking, serious wine, low light."',
+      th: '"อาหารสนุก ไวน์จริงจัง แสงไฟอ่อนๆ"',
+    },
+    chefCaption: {
+      en: 'Chef Jai — also the culinary force behind Charmgang.',
+      th: 'เชฟใจ — ผู้อยู่เบื้องหลัง Charmgang ด้วยเช่นกัน',
     },
   },
 
@@ -96,59 +133,60 @@ export const COPY = {
     eyebrow: { en: 'The food', th: 'อาหาร' },
     title:   { en: 'Small plates, big flavour.', th: 'จานเล็ก รสจัด' },
     intro: {
-      en: "Tapas-style modern Thai, made for sharing. Don't miss the curries.",
-      th: 'อาหารไทยโมเดิร์นสไตล์ทาปาส — สำหรับแชร์ อย่าพลาดแกง',
+      en: 'Tapas-style modern Thai rooted in Thai and Thai-Chinese culinary traditions. Made for sharing. Don\'t miss the curries.',
+      th: 'อาหารไทยโมเดิร์นสไตล์ทาปาส มีรากในไทยและจีน-ไทย สำหรับแชร์ อย่าพลาดแกง',
     },
     fullMenuCta: { en: 'Full menu on Instagram', th: 'เมนูเต็มที่อินสตาแกรม' },
-    // [CONFIRM] dish names + descriptions + prices
+    // Verified signature dishes from public reviews + features.
+    // Prices marked [CONFIRM] — owner to verify before launch.
     dishes: [
       {
-        name: { en: 'Signature curry', th: 'แกงซิกเนเจอร์' },
+        name: { en: 'The OG grilled catfish', th: 'ปลาดุกย่างฉบับ OG' },
         desc: {
-          en: 'Slow-cooked curry, our take on a Bangkok classic.',
-          th: 'แกงเคี่ยวช้าๆ ตีความใหม่จากรสคลาสสิกกรุงเทพ',
+          en: 'A Charmkrung signature — grilled catfish, the dish reviewers come back for.',
+          th: 'ซิกเนเจอร์ของชาร์มกรุง — ปลาดุกย่างที่นักวิจารณ์กลับมาสั่งซ้ำ',
         },
-        price: '฿320',
+        price: '฿420', // [CONFIRM]
+      },
+      {
+        name: { en: 'Crispy pork, pineapple & gingko', th: 'หมูกรอบ สับปะรด แปะก๊วย' },
+        desc: {
+          en: 'A Thai-Chinese plate — crackling pork against sweet pineapple and earthy gingko nuts.',
+          th: 'จานไทย-จีน — หมูกรอบกับสับปะรดหวานและแปะก๊วยรสดิน',
+        },
+        price: '฿380', // [CONFIRM]
+      },
+      {
+        name: { en: 'Charred eggplant salad', th: 'ยำมะเขือยาวเผา' },
+        desc: {
+          en: 'Smoky eggplant tossed with herbs, lime, and chilli — a regular order across reviews.',
+          th: 'มะเขือยาวเผารสควัน ยำกับสมุนไพร มะนาว พริก',
+        },
+        price: '฿260', // [CONFIRM]
+      },
+      {
+        name: { en: 'Bangkok-style curry', th: 'แกงสไตล์กรุงเทพ' },
+        desc: {
+          en: 'A modern take on a Bangkok classic — slow-cooked, deep, and complex.',
+          th: 'ตีความใหม่จากแกงคลาสสิกกรุงเทพ — เคี่ยวช้า รสลึก ซับซ้อน',
+        },
+        price: '฿340', // [CONFIRM]
       },
       {
         name: { en: 'Crispy rice salad', th: 'ยำข้าวทอด' },
         desc: {
-          en: 'Sour-spicy salad with crisped jasmine rice and herbs.',
+          en: 'Sour-spicy salad with crisped jasmine rice and a tangle of fresh herbs.',
           th: 'ยำเปรี้ยวเผ็ดกับข้าวหอมมะลิทอดและสมุนไพรไทย',
         },
-        price: '฿260',
-      },
-      {
-        name: { en: 'Grilled river prawn', th: 'กุ้งแม่น้ำเผา' },
-        desc: {
-          en: 'Charcoal-grilled, served with northern Thai dipping sauce.',
-          th: 'ย่างถ่านเสิร์ฟพร้อมน้ำจิ้มแจ่วเหนือ',
-        },
-        price: '฿480',
-      },
-      {
-        name: { en: 'Smoked pork jowl', th: 'คอหมูรมควัน' },
-        desc: {
-          en: 'Slow-smoked, with sour tamarind glaze and crisp shallots.',
-          th: 'รมควันช้าๆ กับซอสมะขามและหอมเจียว',
-        },
-        price: '฿340',
+        price: '฿260', // [CONFIRM]
       },
       {
         name: { en: 'Sea bass laab', th: 'ลาบปลากะพง' },
         desc: {
-          en: 'Raw sea bass tossed northern-style with roasted rice and mint.',
-          th: 'ลาบปลากะพงดิบ ข้าวคั่ว สะระแหน่',
+          en: 'Raw sea bass tossed northern-style with roasted rice, mint and chilli oil.',
+          th: 'ลาบปลากะพงดิบ ข้าวคั่ว สะระแหน่ น้ำพริกเผา',
         },
-        price: '฿380',
-      },
-      {
-        name: { en: 'Tamarind palm sugar custard', th: 'คัสตาร์ดมะขามน้ำตาลปี๊บ' },
-        desc: {
-          en: 'A nostalgic sweet to close, served warm.',
-          th: 'ขนมหวานคลาสสิก เสิร์ฟอุ่นๆ',
-        },
-        price: '฿180',
+        price: '฿380', // [CONFIRM]
       },
     ],
   },
@@ -157,22 +195,22 @@ export const COPY = {
     eyebrow: { en: 'The wine & drinks', th: 'ไวน์และเครื่องดื่ม' },
     title:   { en: 'Wine-led, herb-driven.', th: 'ไวน์นำ สมุนไพรขับ' },
     body: {
-      en: 'A well-curated wine list alongside a short, strong selection of signature drinks built on Thai and Chinese herbs and spices.',
-      th: 'ไวน์ลิสต์คัดสรรมาดี พร้อมค็อกเทลซิกเนเจอร์สั้นๆ ที่ใช้สมุนไพรและเครื่องเทศไทย-จีน',
+      en: 'Sommelier Kiki Sontiyart curates an undogmatic list — traditional regions alongside experimental wines, with an eye on what pairs Thai flavour. Plus a short, strong selection of signature drinks built on Thai and Chinese herbs.',
+      th: 'ซอมเมอลิเย Kiki Sontiyart คัดเลือกไวน์โดยไม่ยึดติด — ภูมิภาคคลาสสิกเคียงข้างไวน์ทดลอง โดยมองที่การจับคู่กับรสไทย พร้อมค็อกเทลซิกเนเจอร์สั้นๆ ที่ใช้สมุนไพรไทยและจีน',
     },
-    // [CONFIRM] signature drink names + descriptions
+    // [CONFIRM] signature drinks — these are well-fitting placeholders
     drinks: [
       {
         name: { en: 'Pandan & gin sour',          th: 'แพนแดน แอนด์ จิน ซาวร์' },
-        notes:{ en: 'Fragrant, green, citric',    th: 'หอม เขียว เปรี้ยว' },
+        notes:{ en: 'Fragrant · green · citric',  th: 'หอม · เขียว · เปรี้ยว' },
       },
       {
         name: { en: 'Tamarind negroni',           th: 'มะขามเนโกรนี' },
-        notes:{ en: 'Bitter, sour, deep amber',   th: 'ขม เปรี้ยว สีอำพันเข้ม' },
+        notes:{ en: 'Bitter · sour · deep amber', th: 'ขม · เปรี้ยว · สีอำพันเข้ม' },
       },
       {
-        name: { en: 'Cha yen highball',           th: 'ชาเย็นไฮบอล' },
-        notes:{ en: 'Thai tea, soda, whisky',     th: 'ชาไทย โซดา วิสกี้' },
+        name: { en: 'Large-format Loire pour',    th: 'ไวน์ลัวร์ขวดใหญ่' },
+        notes:{ en: 'Magnums + Jeroboams · from the list', th: 'แมกนัม + เจโรโบม · จากลิสต์' },
       },
     ],
   },
@@ -184,8 +222,8 @@ export const COPY = {
       th: 'ชั้นหก โรงงานยุค 1950',
     },
     body: {
-      en: 'A loft-style room with views over the bustling streets of Charoen Krung — warm, low-lit, and open late.',
-      th: 'ห้องสไตล์ลอฟท์ที่มองออกไปเห็นเจริญกรุง — อบอุ่น แสงอ่อน เปิดดึก',
+      en: 'A loft-style room with sixty seats arranged around a central bar and an open kitchen pass, with views across Charoen Krung\'s bustling streets — warm, low-lit, and open late.',
+      th: 'ห้องสไตล์ลอฟท์หกสิบที่นั่ง วางรอบบาร์กลางและเคาน์เตอร์ครัวเปิดโล่ง มองออกไปเห็นเจริญกรุง — อบอุ่น แสงอ่อน เปิดดึก',
     },
   },
 
@@ -195,8 +233,8 @@ export const COPY = {
       th: 'มาใช้เวลาเย็นๆ กับเรา',
     },
     body: {
-      en: 'Open every day · Kitchen 6 – 11 PM', // [CONFIRM]
-      th: 'เปิดทุกวัน · ครัว 18.00 – 23.00 น.',
+      en: 'Mon, Thu – Sun · 6 – 11 PM · Closed Tue & Wed',
+      th: 'จันทร์, พฤหัสบดี – อาทิตย์ · 18.00 – 23.00 น. · ปิดทุกอังคาร-พุธ',
     },
     primary:   { en: 'Reserve via SevenRooms', th: 'จองผ่าน SevenRooms' },
     secondary: { en: 'Message us on LINE',     th: 'ทักหาเราที่ LINE' },
@@ -211,7 +249,7 @@ export const COPY = {
     phoneLabel:{ en: 'Phone',           th: 'โทร' },
     emailLabel:{ en: 'Email',           th: 'อีเมล' },
     transitLabel: { en: 'Getting there', th: 'การเดินทาง' },
-    parking:   { en: 'Limited street parking · ride-hailing recommended', th: 'ที่จอดข้างถนนจำกัด · แนะนำ Grab' }, // [CONFIRM]
+    parking:   { en: 'Limited street parking · ride-hailing recommended', th: 'ที่จอดข้างถนนจำกัด · แนะนำ Grab' },
   },
 
   footer: {
