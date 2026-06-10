@@ -64,42 +64,39 @@ export const BRAND = {
  *  these paths to local URLs.
  * =================================================================== */
 export const PHOTOS = {
-  // DestinAsian editorial slider — 5 photos of food + interior
-  destin1: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-1.jpg',
-  destin2: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-2.jpg',
-  destin3: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-3.jpg',
-  destin4: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-4.jpg',
-  destin5: 'https://staging.destinasian.com/wp-content/uploads/Charmkrung-5.jpg',
-
-  // CreatorsLab feature
-  cl_interior: 'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-interior-image-1.webp',
-  cl_chef:     'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-chef-jai.webp',
-
-  // Star Wine List + World of Mouth interior shots
-  swl_interior: 'https://starwinelist.com/storage/images/venue/4624/980x541/7OYDlQtvOMmr8vW3yV93MgQSZMCu0bNzJEAj7dzN.jpg?signature=9a991de201b4f677b785136e21ae7726c605962ad1bfd1a5242b13f3cccf2e54',
-  wom_interior: 'https://production-data.worldofmouth.app/images/274e67d8-252c-43e7-a067-fb5d7ca8663c.jpg',
-
-  // BK Magazine pulled an Instagram photo for their feature
-  bk_press: 'https://bk.asia-city.com/sites/default/files/u143798/411370140_122094840302160757_5823154937978590373_n.jpeg',
-
-  // ----- Section assignments -----
-  hero:      'https://staging.destinasian.com/wp-content/uploads/Charmkrung-1.jpg',
-  story:     'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-interior-image-1.webp',
-  chef:      'https://creatorslab.co/wp-content/uploads/2024/07/creatorslab-charmkrung-restaurant-chef-jai.webp',
-  spaceWide: 'https://production-data.worldofmouth.app/images/274e67d8-252c-43e7-a067-fb5d7ca8663c.jpg',
-  spaceA:    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-2.jpg',
-  spaceB:    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-5.jpg',
+  // All photos downloaded to /public/images/ so the site does not depend on
+  // third-party hosts staying online. Source credits live in `PHOTO_CREDITS`
+  // below and in README.md. Once the owner provides their own photography,
+  // drop the new files in /public/images/ and update these paths.
+  hero:      '/images/destin-1.jpg',
+  story:     '/images/cl-interior.webp',
+  chef:      '/images/cl-chef.webp',
+  spaceWide: '/images/wom-interior.jpg',
+  spaceA:    '/images/destin-2.jpg',
+  spaceB:    '/images/destin-5.jpg',
 
   // Six dish images for the menu cards, mapped in order
   dish: [
-    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-3.jpg',
-    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-4.jpg',
-    'https://starwinelist.com/storage/images/venue/4624/980x541/7OYDlQtvOMmr8vW3yV93MgQSZMCu0bNzJEAj7dzN.jpg?signature=9a991de201b4f677b785136e21ae7726c605962ad1bfd1a5242b13f3cccf2e54',
-    'https://bk.asia-city.com/sites/default/files/u143798/411370140_122094840302160757_5823154937978590373_n.jpeg',
-    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-2.jpg',
-    'https://staging.destinasian.com/wp-content/uploads/Charmkrung-5.jpg',
+    '/images/destin-3.jpg',
+    '/images/destin-4.jpg',
+    '/images/swl-interior.jpg',
+    '/images/destin-2.jpg',
+    '/images/destin-5.jpg',
+    '/images/destin-1.jpg',
   ],
 };
+
+/**
+ * Press credits for the press-supplied photographs currently in
+ * /public/images/. Owner should secure permission or replace with their
+ * own photography before commercial launch.
+ */
+export const PHOTO_CREDITS = [
+  { file: 'destin-1.jpg … destin-5.jpg', source: 'DestinAsian editorial feature' },
+  { file: 'cl-interior.webp · cl-chef.webp', source: 'CreatorsLab restaurant guide' },
+  { file: 'swl-interior.jpg', source: 'Star Wine List' },
+  { file: 'wom-interior.jpg', source: 'World of Mouth (Oliver Jansson)' },
+];
 
 /* ===================================================================
  *  NAVIGATION
@@ -229,7 +226,8 @@ export const COPY = {
       en: 'Sommelier Kiki Sontiyart curates an undogmatic list — traditional regions alongside experimental wines, with an eye on what pairs Thai flavour. Plus a short, strong selection of signature drinks built on Thai and Chinese herbs.',
       th: 'ซอมเมอลิเย Kiki Sontiyart คัดเลือกไวน์โดยไม่ยึดติด — ภูมิภาคคลาสสิกเคียงข้างไวน์ทดลอง โดยมองที่การจับคู่กับรสไทย พร้อมค็อกเทลซิกเนเจอร์สั้นๆ ที่ใช้สมุนไพรไทยและจีน',
     },
-    // [CONFIRM] signature drinks — these are well-fitting placeholders
+    // Two signature-drink placeholders [CONFIRM with owner before launch].
+    // We deliberately stop at two to avoid inventing a third.
     drinks: [
       {
         name: { en: 'Pandan & gin sour',          th: 'แพนแดน แอนด์ จิน ซาวร์' },
@@ -239,11 +237,11 @@ export const COPY = {
         name: { en: 'Tamarind negroni',           th: 'มะขามเนโกรนี' },
         notes:{ en: 'Bitter · sour · deep amber', th: 'ขม · เปรี้ยว · สีอำพันเข้ม' },
       },
-      {
-        name: { en: 'Large-format Loire pour',    th: 'ไวน์ลัวร์ขวดใหญ่' },
-        notes:{ en: 'Magnums + Jeroboams · from the list', th: 'แมกนัม + เจโรโบม · จากลิสต์' },
-      },
     ],
+    credit: {
+      en: 'Wine programme by Kiki Sontiyart.',
+      th: 'ดูแลไวน์โดย Kiki Sontiyart',
+    },
   },
 
   space: {
