@@ -8,6 +8,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'creatorslab.co' },
       { protocol: 'https', hostname: 'starwinelist.com' },
       { protocol: 'https', hostname: 'production-data.worldofmouth.app' },
+      { protocol: 'https', hostname: 'staging.destinasian.com' },
+      { protocol: 'https', hostname: 'bk.asia-city.com' },
     ],
   },
 };
