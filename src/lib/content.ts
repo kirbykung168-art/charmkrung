@@ -331,7 +331,7 @@ export const COPY = {
         name: 'Loire valley — by the glass',
         region: { en: 'Loire, France', th: 'หุบเขาลัวร์, ฝรั่งเศส' },
         notes:  { en: 'Cabernet Franc / Chenin rotation — for the herb-driven plates.', th: 'หมุนเวียนระหว่าง Cabernet Franc / Chenin' },
-        pick:   { en: 'For the cured-fish bites and Auntie Somthip's smoked tomato.', th: 'สำหรับปลาแนมและยำมะเขือเทศรมควันบ้านส้มทิพย์' },
+        pick:   { en: 'For the cured-fish bites and Auntie Somthip\'s smoked tomato.', th: 'สำหรับปลาแนมและยำมะเขือเทศรมควันบ้านส้มทิพย์' },
       },
       {
         name: 'Rhône — large-format',
