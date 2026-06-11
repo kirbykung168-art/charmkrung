@@ -52,9 +52,10 @@ export default function Footer() {
 
       <hr className="brass-rule full mt-12 opacity-30" />
 
-      <div className="mx-auto max-w-[1480px] px-6 lg:px-10 mt-8 flex flex-col md:flex-row items-center justify-between gap-3 text-[10.5px] tracking-[0.28em] uppercase text-cream/55">
-        <p lang={locale}>© {new Date().getFullYear()} {BRAND.name}. {COPY.footer.rights[locale]}</p>
-        <p lang={locale}>{BRAND.addressLine2}</p>
+      <div className="mx-auto max-w-[1480px] px-6 lg:px-10 mt-8 grid md:grid-cols-3 gap-3 text-[10.5px] tracking-[0.28em] uppercase text-cream/55">
+        <p lang={locale} className="md:text-left text-center">© {new Date().getFullYear()} {BRAND.name}. {COPY.footer.rights[locale]}</p>
+        <p lang={locale} className="text-center">{COPY.footer.credit[locale]}</p>
+        <p lang={locale} className="md:text-right text-center">{BRAND.addressLine2}</p>
       </div>
     </footer>
   );

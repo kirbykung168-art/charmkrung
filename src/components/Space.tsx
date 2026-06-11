@@ -21,9 +21,11 @@ export default function Space() {
     offset: ['start end', 'end start'],
   });
 
-  const yWide = useTransform(scrollYProgress, [0, 1], [20, -20]);
-  const yA    = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const yB    = useTransform(scrollYProgress, [0, 1], [38, -38]);
+  // Calmer parallax — half the previous amplitude so it doesn't
+  // fight Lenis smooth scroll. Was [20,-20] / [60,-60] / [38,-38].
+  const yWide = useTransform(scrollYProgress, [0, 1], [12, -12]);
+  const yA    = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const yB    = useTransform(scrollYProgress, [0, 1], [20, -20]);
 
   const tiles = [
     {

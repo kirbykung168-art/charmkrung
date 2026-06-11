@@ -10,8 +10,17 @@ import CursorCandle from './CursorCandle';
 
 /**
  * HERO — full-viewport candle-lit factory loft.
- * Photo behind a warm legibility wash. Title reveals letter-by-letter.
- * A soft candle-glow halo follows the cursor inside the hero (desktop only).
+ *
+ * Layout fixes vs previous version:
+ *  - Title max-width relaxed to 22ch — the previous 18ch was forcing
+ *    awkward wraps on EN copy and causing letters to feel cramped.
+ *  - Line height eased from 1.02 → 1.08 so animated letters don't
+ *    visually crowd the line above/below during reveal.
+ *  - Subtitle mt-8 → mt-10 for breathing room between title baseline
+ *    and body copy. Title is also shorter copy now ("Nostalgic Thai,
+ *    reimagined.") with the secondary clause moved to the body.
+ *  - Parallax transforms eased from y=14% to y=8% and scale 1→1.04
+ *    (was 1.06) so the scroll-tied movement isn't fighting Lenis.
  */
 export default function Hero() {
   const { locale } = useLocale();
@@ -22,9 +31,10 @@ export default function Hero() {
     target: ref,
     offset: ['start start', 'end start'],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
-  const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.35]);
+  // Calmer parallax — less likely to judder against Lenis smooth wheel.
+  const y       = useTransform(scrollYProgress, [0, 1], ['0%', '8%']);
+  const scale   = useTransform(scrollYProgress, [0, 1], [1, 1.04]);
+  const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.4]);
 
   return (
     <section
@@ -42,7 +52,7 @@ export default function Hero() {
         <div className={prefersReduced ? 'absolute inset-0' : 'absolute inset-0 ken-burns'}>
           <Image
             src={PHOTOS.hero}
-            alt="Charmkrung — sixth-floor 1950s factory interior at night, Charoen Krung, Bangkok"
+            alt="Charmkrung — sixth-floor 1950s factory interior at night with the orange CHARMKRUNG signage above the kitchen pass, Charoen Krung, Bangkok"
             fill
             priority
             sizes="100vw"
@@ -83,9 +93,9 @@ export default function Hero() {
           text={COPY.hero.title[locale]}
           delay={0.45}
           stagger={0.025}
-          className="display text-cream max-w-[18ch] leading-[1.02]"
+          className="display text-cream max-w-[22ch] leading-[1.08]"
           style={{
-            fontSize: 'clamp(38px, 6.6vw, 100px)',
+            fontSize: 'clamp(36px, 6.2vw, 96px)',
             textShadow: '0 2px 20px rgba(0,0,0,0.55)',
           }}
           lang={locale}
@@ -95,7 +105,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 1.6, ease: [0.22, 0.61, 0.36, 1] }}
-          className="font-sans text-[14.5px] text-cream/85 leading-relaxed max-w-2xl mt-8"
+          className="font-sans text-[14.5px] text-cream/85 leading-relaxed max-w-2xl mt-10"
           lang={locale}
           style={{ textShadow: '0 1px 12px rgba(0,0,0,0.6)' }}
         >

@@ -1,102 +1,155 @@
 'use client';
 
 import Image from 'next/image';
-import { BRAND, COPY, PHOTOS } from '@/lib/content';
+import { BRAND, COPY } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
 /**
- * MENU — dish cards on espresso. Each card pairs a real press
- * photograph with the dish name, description, and price. The
- * brass hairline draws in on hover.
+ * MENU — proper restaurant-menu treatment.
+ *
+ * 1. Three "featured" dishes at the top with REAL verified photos.
+ * 2. Below that, the actual printed menu (Small Bites + Medium Plates)
+ *    in two editorial columns — names, descriptions, prices.
+ *
+ * Photography is restricted to dishes we can verify; the rest of the
+ * menu reads as a real restaurant card, not stock-photo cards.
  */
 export default function Menu() {
   const { locale } = useLocale();
+  const m = COPY.menu;
 
   return (
     <section id="menu" className="relative bg-espresso text-cream py-28 lg:py-40">
       <div className="mx-auto max-w-[1480px] px-6 lg:px-10">
+        {/* Section header */}
         <div className="grid lg:grid-cols-[1fr_1fr] gap-12 mb-16 items-end">
           <Reveal>
-            <p className="eyebrow text-brass">{COPY.menu.eyebrow[locale]}</p>
+            <p className="eyebrow text-brass">{m.eyebrow[locale]}</p>
             <h2
               className="display leading-[1.02] mt-5"
               style={{ fontSize: 'clamp(36px, 5vw, 80px)' }}
               lang={locale}
             >
-              {COPY.menu.title[locale]}
+              {m.title[locale]}
             </h2>
             <span className="brass-rule wide mt-8" />
           </Reveal>
           <Reveal delay={0.15}>
             <p className="font-sans text-[15.5px] leading-[1.85] text-cream/80 max-w-md lg:ml-auto" lang={locale}>
-              {COPY.menu.intro[locale]}
+              {m.intro[locale]}
             </p>
           </Reveal>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14 lg:gap-x-12 lg:gap-y-20">
-          {COPY.menu.dishes.map((dish, i) => (
-            <Reveal key={i} delay={(i % 3) * 0.07}>
-              <article className="group">
-                {/* Real press photograph — pulls one of the dish slots from
-                    PHOTOS.dish[]. Vary the alt to describe each dish. */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-espresso-soft warm-sweep">
+        {/* FEATURED DISHES — three verified photos */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-7 mb-20 lg:mb-28">
+          {m.featured.map((f, i) => (
+            <Reveal key={f.key} delay={i * 0.07}>
+              <figure className="group">
+                <div className="relative aspect-[4/5] overflow-hidden bg-espresso-soft warm-sweep">
                   <Image
-                    src={PHOTOS.dish[i % PHOTOS.dish.length]}
-                    alt={`${dish.name.en} — Charmkrung`}
+                    src={f.photo}
+                    alt={`${f.name.en} at Charmkrung, Bangkok — ${f.caption.en.toLowerCase()}`}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    quality={86}
-                    className="object-cover object-center transition-transform duration-[1800ms] ease-elegant group-hover:scale-[1.04]"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    quality={88}
+                    className="object-cover object-center transition-transform duration-[2000ms] ease-elegant group-hover:scale-[1.05]"
                   />
-                  {/* warm vignette */}
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
                       background:
-                        'linear-gradient(180deg, rgba(26,22,20,0) 0%, rgba(26,22,20,0) 60%, rgba(26,22,20,0.55) 100%)',
+                        'linear-gradient(180deg, rgba(26,22,20,0) 0%, rgba(26,22,20,0) 55%, rgba(26,22,20,0.6) 100%)',
                     }}
                   />
-                  <span className="absolute pointer-events-none" style={{ top: 10, left: 10, width: 18, height: 18, borderTop: '1px solid rgba(176,141,76,0.65)', borderLeft: '1px solid rgba(176,141,76,0.65)' }} />
-                  <span className="absolute pointer-events-none" style={{ bottom: 10, right: 10, width: 18, height: 18, borderBottom: '1px solid rgba(176,141,76,0.65)', borderRight: '1px solid rgba(176,141,76,0.65)' }} />
+                  <span className="absolute pointer-events-none" style={{ top: 12, left: 12, width: 18, height: 18, borderTop: '1px solid rgba(176,141,76,0.7)', borderLeft: '1px solid rgba(176,141,76,0.7)' }} />
+                  <span className="absolute pointer-events-none" style={{ bottom: 12, right: 12, width: 18, height: 18, borderBottom: '1px solid rgba(176,141,76,0.7)', borderRight: '1px solid rgba(176,141,76,0.7)' }} />
                 </div>
-
-                <div className="pt-6 flex items-baseline justify-between gap-4">
-                  <h3 className="display text-[26px] leading-tight" lang={locale}>
-                    {dish.name[locale]}
+                <figcaption className="pt-5">
+                  <h3 className="display italic text-[24px] leading-tight" lang={locale}>
+                    {f.name[locale]}
                   </h3>
-                  <span className="font-sans text-[14px] tracking-[0.04em] text-brass tabular-nums whitespace-nowrap">
-                    {dish.price}
-                  </span>
-                </div>
-
-                <span className="block w-full h-px bg-brass/30 mt-3 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-elegant" />
-                <p
-                  className="font-sans text-[13.5px] leading-[1.75] text-cream/70 mt-4"
-                  lang={locale}
-                >
-                  {dish.desc[locale]}
-                </p>
-              </article>
+                  <p className="font-sans text-[12px] uppercase tracking-[0.22em] text-cream/55 mt-2" lang={locale}>
+                    {f.caption[locale]}
+                  </p>
+                </figcaption>
+              </figure>
             </Reveal>
           ))}
         </div>
 
+        {/* THE ACTUAL MENU — two columns */}
+        <div className="grid lg:grid-cols-2 gap-x-16 gap-y-14">
+          <MenuColumn
+            label={m.smallBitesLabel[locale]}
+            items={m.smallBites.map((d) => ({ name: d.name[locale], desc: d.desc[locale], price: d.price }))}
+            locale={locale}
+          />
+          <MenuColumn
+            label={m.mediumPlatesLabel[locale]}
+            items={m.mediumPlates.map((d) => ({ name: d.name[locale], desc: d.desc[locale], price: d.price }))}
+            locale={locale}
+          />
+        </div>
+
         <Reveal delay={0.2}>
-          <div className="mt-20 text-center">
+          <div className="mt-16 text-center space-y-4">
+            <p className="font-sans text-[11.5px] uppercase tracking-[0.28em] text-cream/45" lang={locale}>
+              {m.footnote[locale]}
+            </p>
             <a
               href={BRAND.instagramUrl}
               target="_blank"
               rel="noreferrer"
-              className="font-sans text-[12px] uppercase tracking-[0.28em] text-cream/85 hover:text-brass transition-colors duration-300 underline underline-offset-8 decoration-brass/60 decoration-[0.5px]"
+              className="inline-block font-sans text-[12px] uppercase tracking-[0.28em] text-cream/85 hover:text-brass transition-colors duration-300 underline underline-offset-8 decoration-brass/60 decoration-[0.5px]"
               lang={locale}
             >
-              {COPY.menu.fullMenuCta[locale]} →
+              {m.fullMenuCta[locale]} →
             </a>
           </div>
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function MenuColumn({
+  label,
+  items,
+  locale,
+}: {
+  label: string;
+  items: { name: string; desc: string; price: string }[];
+  locale: string;
+}) {
+  return (
+    <Reveal>
+      <div>
+        <p
+          className="font-sans text-[10.5px] uppercase tracking-[0.48em] text-brass border-b border-[var(--rule-soft)] pb-4 mb-8"
+          lang={locale}
+        >
+          {label}
+        </p>
+        <ul className="space-y-7">
+          {items.map((it, i) => (
+            <li key={i} className="grid grid-cols-[1fr_auto] gap-x-6 items-baseline border-b border-[var(--rule-soft)] pb-7 last:border-0">
+              <div>
+                <h3 className="display text-[20px] leading-snug" lang={locale}>
+                  {it.name}
+                </h3>
+                <p className="font-sans text-[13px] leading-[1.7] text-cream/65 mt-1.5" lang={locale}>
+                  {it.desc}
+                </p>
+              </div>
+              <span className="font-sans text-[14px] tracking-[0.04em] text-brass tabular-nums whitespace-nowrap">
+                {it.price}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Reveal>
   );
 }

@@ -1,16 +1,23 @@
 'use client';
 
-import { COPY } from '@/lib/content';
+import Image from 'next/image';
+import { COPY, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
 /**
- * WINE — espresso-soft band. Big italic headline, then a horizontal row
- * of three signature drink chips. Each chip has a tiny brass mark and a
- * tasting-notes line.
+ * WINE — two-column wine + cocktails treatment.
+ *
+ * Left column: section header, body copy, programme TAGS (Natural / Classic /
+ * Large-format / Old World leaning), then a photo of the duck dish paired
+ * with the Foillard Morgon (the only real producer we can show on-page).
+ *
+ * Right column: a short "on the list (a sample)" bottle list + signature
+ * cocktails. This shows the wine programme is not just decoration.
  */
 export default function Wine() {
   const { locale } = useLocale();
+  const w = COPY.wine;
 
   return (
     <section id="wine" className="relative bg-espresso-soft text-cream py-28 lg:py-36 overflow-hidden">
@@ -23,61 +30,134 @@ export default function Wine() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1320px] px-6 lg:px-10 grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-start">
-        <Reveal>
-          <p className="eyebrow text-brass">{COPY.wine.eyebrow[locale]}</p>
-          <h2
-            className="display italic leading-[1.04] mt-5"
-            style={{ fontSize: 'clamp(34px, 5vw, 76px)' }}
-            lang={locale}
-          >
-            {COPY.wine.title[locale]}
-          </h2>
-          <span className="brass-rule wide mt-8" />
-          <p
-            className="font-sans text-[15.5px] leading-[1.85] text-cream/80 mt-8 max-w-md"
-            lang={locale}
-          >
-            {COPY.wine.body[locale]}
-          </p>
-        </Reveal>
+      <div className="relative mx-auto max-w-[1480px] px-6 lg:px-10 grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-start">
+        {/* LEFT — story + tags + photo */}
+        <div className="space-y-10">
+          <Reveal>
+            <p className="eyebrow text-brass">{w.eyebrow[locale]}</p>
+            <h2
+              className="display italic leading-[1.04] mt-5"
+              style={{ fontSize: 'clamp(34px, 5vw, 76px)' }}
+              lang={locale}
+            >
+              {w.title[locale]}
+            </h2>
+            <span className="brass-rule wide mt-8" />
+            <p
+              className="font-sans text-[15.5px] leading-[1.85] text-cream/80 mt-8 max-w-md"
+              lang={locale}
+            >
+              {w.body[locale]}
+            </p>
+          </Reveal>
 
-        <Reveal delay={0.15}>
-          <ul className="space-y-7">
-            {COPY.wine.drinks.map((d, i) => (
-              <li
-                key={i}
-                className="grid grid-cols-[28px_1fr] gap-5 items-baseline border-b border-[var(--rule-soft)] pb-5"
-              >
-                <span
-                  className="display text-brass text-2xl tabular-nums"
-                  aria-hidden
+          {/* TAG ROW */}
+          <Reveal delay={0.1}>
+            <ul className="flex flex-wrap gap-2.5">
+              {w.tags.map((t, i) => (
+                <li
+                  key={i}
+                  className="font-sans text-[10.5px] uppercase tracking-[0.32em] text-brass border border-brass/35 px-3 py-2"
+                  lang={locale}
                 >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <h3 className="display text-[22px] leading-tight" lang={locale}>
-                    {d.name[locale]}
-                  </h3>
-                  <p
-                    className="font-sans text-[12.5px] tracking-[0.04em] text-cream/65 mt-1.5"
-                    lang={locale}
+                  {t[locale]}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          {/* DUCK + MORGON photo — the one in-frame real bottle */}
+          <Reveal delay={0.15}>
+            <figure className="relative aspect-[3/2] overflow-hidden warm-sweep">
+              <Image
+                src={PHOTOS.dishDuck}
+                alt="Charmkrung — duck breast pictured with Jean Foillard Morgon Côte du Py 2021"
+                fill
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                quality={88}
+                className="object-cover object-center"
+              />
+              <span className="absolute pointer-events-none" style={{ top: 10, left: 10, width: 16, height: 16, borderTop: '1px solid rgba(176,141,76,0.7)', borderLeft: '1px solid rgba(176,141,76,0.7)' }} />
+              <span className="absolute pointer-events-none" style={{ bottom: 10, right: 10, width: 16, height: 16, borderBottom: '1px solid rgba(176,141,76,0.7)', borderRight: '1px solid rgba(176,141,76,0.7)' }} />
+            </figure>
+            <figcaption className="font-sans text-[11px] uppercase tracking-[0.28em] text-cream/55 mt-4">
+              Pairing · Foillard Morgon Côte du Py 2021
+            </figcaption>
+          </Reveal>
+        </div>
+
+        {/* RIGHT — bottle list + cocktail list */}
+        <div className="space-y-14">
+          <Reveal delay={0.1}>
+            <h3 className="font-sans text-[10.5px] uppercase tracking-[0.48em] text-brass border-b border-[var(--rule-soft)] pb-4 mb-7" lang={locale}>
+              {w.bottlesLabel[locale]}
+            </h3>
+            <ul className="space-y-6">
+              {w.bottles.map((b, i) => (
+                <li
+                  key={i}
+                  className="grid grid-cols-[28px_1fr] gap-5 items-baseline border-b border-[var(--rule-soft)] pb-5 last:border-0"
+                >
+                  <span
+                    className="display text-brass text-xl tabular-nums"
+                    aria-hidden
                   >
-                    {d.notes[locale]}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-          {/* Sommelier credit — Kiki Sontiyart leads the wine programme.
-              Verified via Star Wine List. */}
-          <p
-            className="font-sans text-[11px] uppercase tracking-[0.32em] text-brass mt-10"
-            lang={locale}
-          >
-            {COPY.wine.credit[locale]}
-          </p>
-        </Reveal>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h4 className="display text-[18px] leading-tight">
+                      {b.name}
+                    </h4>
+                    <p className="font-sans text-[11.5px] uppercase tracking-[0.22em] text-brass/85 mt-1.5" lang={locale}>
+                      {b.region[locale]}
+                    </p>
+                    <p className="font-sans text-[12.5px] leading-[1.7] text-cream/70 mt-1.5" lang={locale}>
+                      {b.notes[locale]}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={0.18}>
+            <h3 className="font-sans text-[10.5px] uppercase tracking-[0.48em] text-brass border-b border-[var(--rule-soft)] pb-4 mb-7" lang={locale}>
+              {w.cocktailsLabel[locale]}
+            </h3>
+            <ul className="space-y-5">
+              {w.cocktails.map((c, i) => (
+                <li
+                  key={i}
+                  className="grid grid-cols-[28px_1fr] gap-5 items-baseline border-b border-[var(--rule-soft)] pb-4 last:border-0"
+                >
+                  <span
+                    className="display italic text-brass/80 text-lg tabular-nums"
+                    aria-hidden
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h4 className="display text-[18px] leading-tight" lang={locale}>
+                      {c.name[locale]}
+                    </h4>
+                    <p className="font-sans text-[12px] tracking-[0.04em] text-cream/65 mt-1" lang={locale}>
+                      {c.notes[locale]}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={0.22}>
+            <p
+              className="font-sans text-[11px] uppercase tracking-[0.32em] text-brass leading-[1.7]"
+              lang={locale}
+            >
+              {w.credit[locale]}
+            </p>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
