@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Fraunces, Hanken_Grotesk, Noto_Sans_Thai } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
-import { BRAND } from '@/lib/content';
+import { BRAND, COPY, SOMMELIER } from '@/lib/content';
 import { LanguageProvider } from '@/components/LanguageProvider';
 import SmoothScroll from '@/components/SmoothScroll';
 
@@ -43,6 +44,8 @@ export const metadata: Metadata = {
     'modern Thai small plates',
     'Bangkok tapas',
     'wine bar Bangkok',
+    'Aruss Jai Lerlerstkull',
+    'Kiki Sontiyart',
   ],
   openGraph: {
     title: `${BRAND.name} — Modern Thai Small Plates & Wine Bar`,
@@ -70,10 +73,8 @@ export const metadata: Metadata = {
 };
 
 /**
- * JSON-LD Restaurant schema — lets Google index Charmkrung as a real Bangkok
- * restaurant with hours, address, geo, telephone, social handles, and the
- * reservations URL. Eligible for Knowledge Panel + Maps results + "near me"
- * queries. Verify lat/lng + hours with the owner before launch.
+ * JSON-LD #1 — Restaurant. Hours, address, geo, telephone, social handles,
+ * reservations URL, sommelier + chef. Eligible for Maps + Knowledge Panel.
  */
 const RESTAURANT_JSONLD = {
   '@context': 'https://schema.org',
@@ -86,6 +87,7 @@ const RESTAURANT_JSONLD = {
   servesCuisine: ['Thai', 'Modern Thai', 'Wine bar'],
   priceRange: '฿฿฿',
   acceptsReservations: true,
+  award: 'Star Wine List · Best Short List Southeast Asia 2026',
   address: {
     '@type': 'PostalAddress',
     streetAddress: BRAND.addressLine2,
@@ -102,11 +104,21 @@ const RESTAURANT_JSONLD = {
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      // Verified via BK Magazine + CreatorsLab — Thu/Mon, 5:30pm – midnight,
-      // closed Tue/Wed.
       dayOfWeek: ['Monday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       opens: '17:30',
       closes: '23:59',
+    },
+  ],
+  employee: [
+    {
+      '@type': 'Person',
+      name: BRAND.chefName,
+      jobTitle: 'Executive Chef',
+    },
+    {
+      '@type': 'Person',
+      name: SOMMELIER.name,
+      jobTitle: 'Sommelier',
     },
   ],
   sameAs: [
@@ -126,16 +138,58 @@ const RESTAURANT_JSONLD = {
   },
 };
 
+/**
+ * JSON-LD #2 — Menu with featured signature dishes. Lets Google show
+ * a menu carousel in rich results for "Charmkrung menu" queries.
+ */
+const MENU_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'Menu',
+  name: 'Charmkrung · Signatures',
+  inLanguage: 'en-TH',
+  hasMenuSection: [{
+    '@type': 'MenuSection',
+    name: 'Signatures',
+    hasMenuItem: COPY.menu.featured.map((f: any) => ({
+      '@type': 'MenuItem',
+      name: f.name.en,
+      description: f.caption.en,
+      image: `${SITE_URL}${f.photo}`,
+    })),
+  }],
+};
+
+const WEBSITE_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: BRAND.name,
+  url: SITE_URL,
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
+      translate="no"
       className={`${fraunces.variable} ${hanken.variable} ${notoThai.variable}`}
     >
       <head>
+        {/* Prevent Chrome / Google auto-translate from mangling the
+            curated Thai copy — without this, visitors whose browser
+            is set to auto-translate Thai see Chrome's literal English. */}
+        <meta name="google" content="notranslate" />
+        <meta name="robots" content="notranslate" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(RESTAURANT_JSONLD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(MENU_JSONLD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSONLD) }}
         />
       </head>
       <body className="bg-espresso text-cream antialiased">
@@ -152,6 +206,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main id="main">{children}</main>
           </SmoothScroll>
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
