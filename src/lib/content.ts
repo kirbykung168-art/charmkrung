@@ -151,8 +151,8 @@ export const COPY = {
       th: 'อาหารไทยที่คุ้นเคย ในรูปแบบใหม่',
     },
     body: {
-      en: 'One small plate at a time — perched on the sixth floor of a 1950s factory, Charmkrung pairs playful modern Thai with an undogmatic wine list and drinks built on Thai and Chinese herbs.',
-      th: 'ทีละจานเล็ก — บนชั้นหกของโรงงานเก่ายุค 1950 ชาร์มกรุงเสิร์ฟอาหารไทยจานเล็กสไตล์โมเดิร์น คู่กับไวน์ที่ไม่ยึดติด และค็อกเทลที่ใช้สมุนไพรไทยและจีน',
+      en: 'Modern Thai small plates and an undogmatic wine list, sixth floor of a 1950s Charoen Krung factory.',
+      th: 'อาหารไทยจานเล็กสไตล์โมเดิร์น คู่กับลิสต์ไวน์ที่ไม่ยึดติด · ชั้นหกของโรงงานเก่ายุค 1950 เจริญกรุง',
     },
     ctaReserve: { en: 'Reserve a table', th: 'จองโต๊ะ' },
     ctaMenu:    { en: 'See the menu',    th: 'ดูเมนู' },
@@ -188,7 +188,7 @@ export const COPY = {
 
   menu: {
     eyebrow: { en: 'The food', th: 'อาหาร' },
-    title:   { en: 'Small plates, big flavour.', th: 'จานเล็ก รสจัด' },
+    title:   { en: 'Eat the bar, plate by plate.', th: 'กินที่บาร์ · ทีละจาน' },
     intro: {
       en: 'Tapas-style modern Thai rooted in Thai and Thai-Chinese culinary traditions — designed to share around the bar. Most plates ฿95 – ฿380; the menu rotates with the kitchen.',
       th: 'อาหารไทยโมเดิร์นสไตล์ทาปาส มีรากในไทยและจีน-ไทย ออกแบบมาให้แชร์รอบบาร์ จานส่วนใหญ่ ฿95 – ฿380 เมนูหมุนเวียนตามวัตถุดิบ',
@@ -325,21 +325,25 @@ export const COPY = {
         name: 'Jean Foillard · Morgon Côte du Py',
         region: { en: 'Beaujolais, France', th: 'โบโฌเลส์, ฝรั่งเศส' },
         notes:  { en: 'Natural Gamay. Pictured with chef\'s duck.', th: 'แกเมย์ธรรมชาติ ในภาพคู่กับเป็ดของเชฟ' },
+        pick:   { en: 'Cuts through smoke. The duck and the dry-galangal jin-tuup both ask for it.', th: 'ตัดผ่านรสควัน เป็ดและจิ๊นตุ๊ปต้องการขวดนี้' },
       },
       {
         name: 'Loire valley — by the glass',
         region: { en: 'Loire, France', th: 'หุบเขาลัวร์, ฝรั่งเศส' },
         notes:  { en: 'Cabernet Franc / Chenin rotation — for the herb-driven plates.', th: 'หมุนเวียนระหว่าง Cabernet Franc / Chenin' },
+        pick:   { en: 'For the cured-fish bites and Auntie Somthip's smoked tomato.', th: 'สำหรับปลาแนมและยำมะเขือเทศรมควันบ้านส้มทิพย์' },
       },
       {
         name: 'Rhône — large-format',
         region: { en: 'Rhône, France',    th: 'โรน, ฝรั่งเศส' },
         notes:  { en: 'Magnums & jeroboams when the room is big enough.', th: 'แมกนัม / เจโรโบม เมื่อห้องใหญ่พอ' },
+        pick:   { en: 'Big bottles for big tables — open the Rhône for a buy-out.', th: 'ขวดใหญ่สำหรับโต๊ะใหญ่ — เปิดโรนตอนเหมาทั้งห้อง' },
       },
       {
         name: 'Skin-contact & pét-nat',
         region: { en: 'rotating producers', th: 'ผู้ผลิตหมุนเวียน' },
         notes:  { en: 'For the spicier southern plates.', th: 'สำหรับจานปักษ์ใต้รสจัด' },
+        pick:   { en: 'Pét-nat with the gor-and mussels; skin-contact with the pomfret.', th: 'เปต-นาตคู่หอยแมลงภู่กอและ · สกินคอนแทคคู่ปลาจาระเม็ด' },
       },
     ],
 
@@ -389,6 +393,10 @@ export const COPY = {
     body: {
       en: 'Open Mon, Thu – Sun · 5:30 PM – midnight · Closed Tuesday & Wednesday',
       th: 'เปิดจันทร์, พฤหัสบดี – อาทิตย์ · 17.30 น. – เที่ยงคืน · ปิดทุกอังคาร-พุธ',
+    },
+    policy: {
+      en: 'Walk-ins welcome at the bar · tables held 15 minutes after booking.',
+      th: 'วอล์คอินที่เคาน์เตอร์บาร์ยินดี · โต๊ะรอ 15 นาทีหลังเวลาจอง',
     },
     primary:   { en: 'Reserve via SevenRooms', th: 'จองผ่าน SevenRooms' },
     secondary: { en: 'Message us on LINE',     th: 'ทักหาเราที่ LINE' },
@@ -459,7 +467,11 @@ export const EVENTS = {
     { en: 'Chef\'s table tasting · 8–14', th: 'เชฟส์เทเบิล · 8–14 ท่าน' },
     { en: 'Large-format wine night · 20+', th: 'คืนไวน์ขวดใหญ่ · 20+' },
   ],
-  cta: { en: 'Enquire · email', th: 'สอบถาม · อีเมล' },
+  cta: { en: 'Email the team', th: 'อีเมลหาทีม' },
+  emailBody: {
+    en: "Hi Charmkrung, I'd like to enquire about a private event for ___ guests, on or around ___. Format: full venue / chef's table tasting / large-format wine night. Thank you.",
+    th: 'สวัสดีค่ะ/ครับ ทีม Charmkrung อยากสอบถามเรื่องงานส่วนตัว ___ ท่าน วันที่ ___ รูปแบบ: เหมาทั้งร้าน / เชฟส์เทเบิล / คืนไวน์ขวดใหญ่ ขอบคุณค่ะ/ครับ',
+  },
 };
 
 /* ===================================================================
