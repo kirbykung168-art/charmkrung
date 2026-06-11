@@ -1,23 +1,26 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { useReducedMotion } from 'framer-motion';
 
 /**
  * BRAND MARQUEE — a single line of brand tags scrolling continuously,
  * separated by small brass diamond glyphs. Sits as a thin tape between
- * Hero and Story. Used by maison and bar sites as press-tape / status-bar.
+ * Hero (and Press Strip) and Story.
  *
- * Reduced motion: shows the tags static, no scroll.
+ * Implementation switched from framer-motion to a pure CSS animation so
+ * we can `animation-play-state: paused` on hover AND on `:active` (touch).
+ * That gives mobile users a way to actually read the strip.
+ *
+ * Reduced motion: shows tags static, no scroll.
  */
+// Reduced to five precise tags after the aesthetic audit — better to
+// repeat fewer, sharper words than scroll a longer list of vague ones.
 const TAGS = [
-  'Open Late',
   'Wine-led',
-  'Talat Noi',
-  '6th Floor',
-  'Since 2024',
-  'Thai · Thai-Chinese',
+  'Talat Noi · 6th Floor',
   '60 Seats',
-  'Music · Bar · Pass',
+  'Since 2024',
+  'SWL · Best Short List · SE Asia 2026',
 ];
 
 export default function BrandMarquee() {
@@ -35,14 +38,10 @@ export default function BrandMarquee() {
   }
 
   return (
-    <div className="bg-espresso-soft text-cream border-y border-[var(--rule-soft)] overflow-hidden">
-      <motion.div
-        className="flex items-center gap-10 py-4 whitespace-nowrap"
-        animate={{ x: ['0%', '-33.333%'] }}
-        transition={{ duration: 48, repeat: Infinity, ease: 'linear' }}
-      >
+    <div className="brand-marquee bg-espresso-soft text-cream border-y border-[var(--rule-soft)] overflow-hidden">
+      <div className="brand-marquee-track flex items-center gap-10 py-4 whitespace-nowrap">
         {list.map((t, i) => <Tag key={i}>{t}</Tag>)}
-      </motion.div>
+      </div>
     </div>
   );
 }

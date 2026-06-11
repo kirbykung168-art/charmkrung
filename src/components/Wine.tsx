@@ -77,8 +77,6 @@ export default function Wine() {
                 quality={88}
                 className="object-cover object-center"
               />
-              <span className="absolute pointer-events-none" style={{ top: 10, left: 10, width: 16, height: 16, borderTop: '1px solid rgba(176,141,76,0.7)', borderLeft: '1px solid rgba(176,141,76,0.7)' }} />
-              <span className="absolute pointer-events-none" style={{ bottom: 10, right: 10, width: 16, height: 16, borderBottom: '1px solid rgba(176,141,76,0.7)', borderRight: '1px solid rgba(176,141,76,0.7)' }} />
             </figure>
             <figcaption className="font-sans text-[11px] uppercase tracking-[0.28em] text-cream/55 mt-4">
               Pairing · Foillard Morgon Côte du Py 2021
@@ -114,6 +112,11 @@ export default function Wine() {
                     <p className="font-sans text-[12.5px] leading-[1.7] text-cream/70 mt-1.5" lang={locale}>
                       {b.notes[locale]}
                     </p>
+                    {'pick' in b && b.pick && (
+                      <p className="display italic text-[13px] leading-[1.55] text-brass/85 mt-2" lang={locale}>
+                        &mdash; {b.pick[locale]}
+                      </p>
+                    )}
                   </div>
                 </li>
               ))}

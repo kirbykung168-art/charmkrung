@@ -98,7 +98,7 @@ function SommelierStencil() {
         <line x1="60" y1="80" x2="60" y2="118" />
         <line x1="46" y1="118" x2="74" y2="118" />
         {/* Wine fill — oxblood */}
-        <path d="M 41 56 C 42 66, 50 75, 60 75 C 70 75, 78 66, 79 56 L 41 56 Z" stroke="var(--oxblood)" fill="var(--oxblood)" fillOpacity="0.55" />
+        <path d="M 41 56 C 42 66, 50 75, 60 75 C 70 75, 78 66, 79 56 L 41 56 Z" stroke="var(--oxblood)" fill="var(--oxblood)" fillOpacity="0.78" />
         {/* Light reflection */}
         <path d="M 46 58 C 47 60, 50 60, 52 58" stroke="var(--cream)" strokeOpacity="0.85" />
       </g>
@@ -110,7 +110,7 @@ function SommelierStencil() {
       </g>
       <line x1="10" y1="148" x2="110" y2="148" stroke="var(--brass)" strokeOpacity="0.4" strokeWidth="0.4" />
       <text x="60" y="146" textAnchor="middle"
-        fontFamily="var(--font-fraunces), serif" fontStyle="italic" fontSize="7"
+        fontFamily="var(--font-fraunces), serif" fontStyle="italic" fontSize="10"
         fill="var(--cream)" fillOpacity="0.75">
         Kiki
       </text>

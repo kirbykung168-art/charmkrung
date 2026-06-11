@@ -63,8 +63,6 @@ export default function Menu() {
                         'linear-gradient(180deg, rgba(26,22,20,0) 0%, rgba(26,22,20,0) 55%, rgba(26,22,20,0.6) 100%)',
                     }}
                   />
-                  <span className="absolute pointer-events-none" style={{ top: 12, left: 12, width: 18, height: 18, borderTop: '1px solid rgba(176,141,76,0.7)', borderLeft: '1px solid rgba(176,141,76,0.7)' }} />
-                  <span className="absolute pointer-events-none" style={{ bottom: 12, right: 12, width: 18, height: 18, borderBottom: '1px solid rgba(176,141,76,0.7)', borderRight: '1px solid rgba(176,141,76,0.7)' }} />
                 </div>
                 <figcaption className="pt-5">
                   <h3 className="display italic text-[24px] leading-tight" lang={locale}>

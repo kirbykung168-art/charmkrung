@@ -67,6 +67,15 @@ export default function Reserve() {
             </a>
           </div>
         </Reveal>
+        <Reveal delay={0.3}>
+          {/* Walk-in policy line — small, trust-building, was missing. */}
+          <p
+            className="font-sans text-[11.5px] tracking-[0.18em] uppercase text-cream/55 mt-10"
+            lang={locale}
+          >
+            {COPY.reserve.policy[locale]}
+          </p>
+        </Reveal>
       </div>
     </section>
   );

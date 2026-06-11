@@ -110,8 +110,6 @@ function Tile({
           quality={88}
           className="object-cover object-center transition-transform duration-[2200ms] ease-elegant hover:scale-[1.04]"
         />
-        <span className="absolute pointer-events-none" style={{ top: 10, left: 10, width: 16, height: 16, borderTop: '1px solid rgba(176,141,76,0.7)', borderLeft: '1px solid rgba(176,141,76,0.7)' }} />
-        <span className="absolute pointer-events-none" style={{ bottom: 10, right: 10, width: 16, height: 16, borderBottom: '1px solid rgba(176,141,76,0.7)', borderRight: '1px solid rgba(176,141,76,0.7)' }} />
       </div>
     </motion.figure>
   );

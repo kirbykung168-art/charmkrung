@@ -12,7 +12,9 @@ import Reveal from './Reveal';
 export default function Events() {
   const { locale } = useLocale();
   const subject = encodeURIComponent('Charmkrung private event enquiry');
-  const mailto = `mailto:${BRAND.email}?subject=${subject}`;
+  // Pre-fill body so the planner doesn't start from a blank line.
+  const body = encodeURIComponent(EVENTS.emailBody[locale]);
+  const mailto = `mailto:${BRAND.email}?subject=${subject}&body=${body}`;
 
   return (
     <section
