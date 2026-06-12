@@ -104,8 +104,11 @@ const RESTAURANT_JSONLD = {
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '17:30',
+      // Updated from Mon/Thu–Sun closure-of-Tue/Wed (CreatorsLab Jul 2024)
+      // to daily 18:00–00:00 per Star Wine List 2026 + Wanderlog (Google
+      // Maps) + Charmkrung's own Instagram (most-recent owner-supplied).
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '18:00',
       closes: '23:59',
     },
   ],
