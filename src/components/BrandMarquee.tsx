@@ -19,7 +19,7 @@ const TAGS = [
   'Wine-led',
   'Talat Noi · 6th Floor',
   '60 Seats',
-  'Since 2024',
+  'Since 2023',
   'SWL · Best Short List · SE Asia 2026',
 ];
 

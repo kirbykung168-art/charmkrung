@@ -41,7 +41,9 @@ export default function Visit() {
 
               <Row label={COPY.visit.hoursLabel[locale]}>
                 <p className="display text-[20px] leading-snug" lang={locale}>{BRAND.hoursOpen}</p>
-                <p className="font-sans text-[12.5px] uppercase tracking-[0.22em] text-brass/85 mt-2" lang={locale}>{BRAND.hoursClosed}</p>
+                {BRAND.hoursClosed && (
+                  <p className="font-sans text-[12.5px] uppercase tracking-[0.22em] text-brass/85 mt-2" lang={locale}>{BRAND.hoursClosed}</p>
+                )}
               </Row>
 
               <Row label={COPY.visit.phoneLabel[locale]}>
