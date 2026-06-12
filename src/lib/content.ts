@@ -277,10 +277,11 @@ export const COPY = {
     ],
 
     // Three dishes get a verified hero photo at the top of the menu.
-    // `focal` is a CSS object-position value — needed because destin-2
-    // and destin-5 are split-frame DestinAsian photos (subject in the
-    // LEFT half, second scene in the right). Default object-center
-    // crops to the seam between scenes; "25% 50%" focuses on the dish.
+    // destin-2-dish.jpg and destin-5-dish.jpg are pre-cropped left
+    // halves of the DestinAsian split-frame originals (which paired
+    // each dish with a second scene — relishing the actual dish was
+    // impossible at any reasonable object-position). The dishes now
+    // fill the card on every viewport without scene-seam artifacts.
     featured: [
       {
         key: 'oyster',
@@ -291,15 +292,15 @@ export const COPY = {
       },
       {
         key: 'braise',
-        photo: '/images/destin-5.jpg',
-        focal: '22% 50%',
+        photo: '/images/destin-5-dish.jpg',
+        focal: '50% 50%',
         name: { en: 'The chef\'s relish + house bread', th: 'แจ่วประจำวันกับขนมปังร้าน' },
         caption: { en: 'Slow-braised relish, fresh-baked bread', th: 'แจ่วเคี่ยวช้า ขนมปังอบเอง' },
       },
       {
         key: 'cured',
-        photo: '/images/destin-2.jpg',
-        focal: '25% 50%',
+        photo: '/images/destin-2-dish.jpg',
+        focal: '50% 50%',
         name: { en: 'Cured fish, betel leaf', th: 'ปลาบ่ม ใบชะพลู' },
         caption: { en: 'Aged fish, betel leaf, lime — the cured-rice-sausage cousin', th: 'ปลาบ่ม ใบชะพลู เลมอน' },
       },
