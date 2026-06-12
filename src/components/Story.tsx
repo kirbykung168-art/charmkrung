@@ -1,9 +1,27 @@
 'use client';
 
-import Image from 'next/image';
 import { BRAND, COPY } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
+
+/**
+ * Koktail trio image — delivered through wsrv.nl (free Cloudflare-backed
+ * image proxy that does on-the-fly resize + WebP conversion).
+ *
+ * `output=webp` cuts the original 1.9 MB Koktail PNG to roughly 80 KB at
+ * 640w and 200 KB at 1290w. Same upstream URL, multiple sizes via the
+ * `w=` param so a srcSet can hand the browser the right one.
+ */
+const KOKTAIL_UPSTREAM = encodeURIComponent(
+  'https://www.koktailmagazine.com/wp-content/uploads/2024/10/resized/c859bf773fea73baf4f9987737b5c2aa-1290x916.png',
+);
+const wsrv = (w: number) => `https://wsrv.nl/?url=${KOKTAIL_UPSTREAM}&w=${w}&output=webp&q=82`;
+const KOKTAIL_TRIO = {
+  src480:  wsrv(480),
+  src640:  wsrv(640),
+  src1080: wsrv(1080),
+  src1290: wsrv(1290),
+};
 
 /**
  * STORY — cream editorial section. Chef Trio portrait card on the left,
@@ -58,18 +76,25 @@ export default function Story() {
                   the three figures stay readable (they sit in the
                   lower-mid of the source image, so object-position
                   shifts down to crop the gallery wall above them),
-                  reverts to the native 1290:916 landscape on tablet+.
-                  `unoptimized` is OFF so Next/Image serves a properly
-                  sized WebP/AVIF (the original PNG is 1.9 MB — way too
-                  heavy on cellular). */}
+                  reverts to native 1290:916 landscape on tablet+.
+
+                  Image delivery: routed through wsrv.nl (Cloudflare
+                  Workers, no signup, free) which resizes and converts
+                  to WebP on the fly. The original Koktail PNG is
+                  1.9 MB — wsrv shrinks that to ~80 KB at 640w WebP
+                  for mobile. Falls back to /api/koktail-trio if wsrv
+                  is unreachable (the <picture> source order means the
+                  browser tries WebP first). */}
               <div className="relative aspect-[4/5] md:aspect-[1290/916] overflow-hidden">
-                <Image
-                  src="/api/koktail-trio"
-                  alt="Mew, Jai and Aew — the three founding chefs behind Charmgang and Charmkrung, photographed for Koktail Magazine's Future List 2022"
-                  fill
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={KOKTAIL_TRIO.src1080}
+                  srcSet={`${KOKTAIL_TRIO.src480} 480w, ${KOKTAIL_TRIO.src640} 640w, ${KOKTAIL_TRIO.src1080} 1080w, ${KOKTAIL_TRIO.src1290} 1290w`}
                   sizes="(max-width: 1024px) 92vw, 45vw"
-                  quality={88}
-                  className="object-cover object-[50%_62%] md:object-center"
+                  alt="Mew, Jai and Aew — the three founding chefs behind Charmgang and Charmkrung, photographed for Koktail Magazine's Future List 2022"
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover object-[50%_62%] md:object-center"
                   style={{ filter: 'contrast(1.04) saturate(0.94)' }}
                 />
                 {/* Warm vignette — pulls the gallery wall into the brand palette */}
