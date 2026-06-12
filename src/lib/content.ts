@@ -116,7 +116,7 @@ export const PHOTO_CREDITS = [
  */
 export const PRESS_LOGOS: { name: string; url: string }[] = [
   { name: 'DestinAsian',     url: 'https://destinasian.com/bangkok-dining-charmkrung' },
-  { name: 'BK Magazine',     url: 'https://bk.asia-city.com' },
+  { name: 'BK Magazine',     url: 'https://bk.asia-city.com/restaurants/news/new-restaurants-and-cafes-to-check-out-first-month-2024' },
   { name: 'Star Wine List',  url: 'https://starwinelist.com/wine-place/charmkrung' },
   { name: 'World of Mouth',  url: 'https://www.worldofmouth.app/restaurants/charmkrung' },
   { name: 'Indagare',        url: 'https://indagare.com/restaurant/charmkrung' },
@@ -130,6 +130,7 @@ export const NAV_ITEMS: { href: string; label: { en: string; th: string } }[] = 
   { href: '#menu',   label: { en: 'Menu',      th: 'เมนู' } },
   { href: '#wine',   label: { en: 'Wine',      th: 'ไวน์' } },
   { href: '#space',  label: { en: 'The Space', th: 'พื้นที่' } },
+  { href: '#events', label: { en: 'Events',    th: 'งานส่วนตัว' } },
   { href: '#visit',  label: { en: 'Visit',     th: 'มาเยือน' } },
 ];
 
@@ -444,7 +445,7 @@ export const SOMMELIER = {
   badge: {
     label: { en: 'Star Wine List · 2026', th: 'Star Wine List · 2026' },
     sub:   { en: 'Best Short List · SE Asia', th: 'Best Short List · เอเชียตะวันออกเฉียงใต้' },
-    url:   'https://starwinelist.com/wine-place/charmkrung',
+    url:   'https://starwinelist.com/wine-story/star-wine-list-of-the-year-southeast-asia-2026-winners',
   },
 };
 
@@ -496,19 +497,19 @@ export const SOURCES = [
     url: 'https://starwinelist.com/wine-place/charmkrung' },
   { claim: 'Sister restaurant: Charmgang (Michelin-listed flagship)',
     publication: 'Late Culture — sister-restaurant context',
-    url: 'https://lateculture.com/charmkrung' },
+    url: 'https://www.lateculture.com/eat/charmkrung' },
   { claim: 'Wine programme on Star Wine List Best Short List, SE Asia 2026',
     publication: 'Star Wine List',
-    url: 'https://starwinelist.com/best-short-list-se-asia-2026' },
+    url: 'https://starwinelist.com/wine-story/star-wine-list-of-the-year-southeast-asia-2026-winners' },
   { claim: 'Founder quote: "vongole clams in southern turmeric sauce, kanom krok with chicken-liver pâté"',
     publication: 'BK Magazine, December 2023',
-    url: 'https://bk.asia-city.com' },
+    url: 'https://bk.asia-city.com/restaurants/news/new-restaurants-and-cafes-to-check-out-first-month-2024' },
   { claim: 'Menu prices verified from in-room menu photograph (Mar 2025)',
     publication: 'The Brief Review',
-    url: 'https://briefreview.com/charmkrung-bangkok' },
+    url: 'https://thebriefreview.com/charmkrung-review-a-taste-of-traditional-thai-elegance-in-bangkok-bangkok-thailand/' },
   { claim: 'Sixth-floor 1950s factory loft, sixty seats around central bar + kitchen pass',
     publication: 'CreatorsLab restaurant profile',
-    url: 'https://creatorslab.app/charmkrung' },
+    url: 'https://creatorslab.co/charmkrung/' },
   { claim: 'Siamese Oyster Ceviche (Gillardeau) — confirmed signature dish photo',
     publication: 'World of Mouth — Oliver Jansson recommendation',
     url: 'https://www.worldofmouth.app/restaurants/charmkrung' },
@@ -517,7 +518,7 @@ export const SOURCES = [
     url: 'https://destinasian.com/bangkok-dining-charmkrung' },
   { claim: 'Cocktails built on Thai + Chinese herbs (Smoked Corn Old-Fashioned, The Moms chrysanthemum)',
     publication: 'BK Magazine + Wanderlog reviews',
-    url: 'https://bk.asia-city.com' },
+    url: 'https://bk.asia-city.com/restaurants/news/new-restaurants-and-cafes-to-check-out-first-month-2024' },
   { claim: 'Reservations via SevenRooms',
     publication: 'Restaurant\'s own SevenRooms deep link',
     url: 'https://www.sevenrooms.com/explore/charmkrungbangkok/reservations/create' },
