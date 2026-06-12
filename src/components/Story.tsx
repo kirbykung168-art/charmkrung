@@ -53,16 +53,23 @@ export default function Story() {
                 />
               </div>
 
-              {/* Photo with brass corner brackets + warm vignette */}
-              <div className="relative aspect-[1290/916] overflow-hidden">
+              {/* Photo with brass corner brackets + warm vignette.
+                  Aspect ratio is responsive: portrait 4:5 on phones so
+                  the three figures stay readable (they sit in the
+                  lower-mid of the source image, so object-position
+                  shifts down to crop the gallery wall above them),
+                  reverts to the native 1290:916 landscape on tablet+.
+                  `unoptimized` is OFF so Next/Image serves a properly
+                  sized WebP/AVIF (the original PNG is 1.9 MB — way too
+                  heavy on cellular). */}
+              <div className="relative aspect-[4/5] md:aspect-[1290/916] overflow-hidden">
                 <Image
                   src="/api/koktail-trio"
                   alt="Mew, Jai and Aew — the three founding chefs behind Charmgang and Charmkrung, photographed for Koktail Magazine's Future List 2022"
                   fill
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                  quality={92}
-                  unoptimized
-                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 92vw, 45vw"
+                  quality={88}
+                  className="object-cover object-[50%_62%] md:object-center"
                   style={{ filter: 'contrast(1.04) saturate(0.94)' }}
                 />
                 {/* Warm vignette — pulls the gallery wall into the brand palette */}

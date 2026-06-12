@@ -57,7 +57,12 @@ export default function Hero() {
             priority
             sizes="100vw"
             quality={88}
-            className="object-cover object-center"
+            // object-position is responsive — on portrait mobile the
+            // photo is heavily cropped at the sides, so we shift the
+            // focal point up a touch (35% from top) to keep the orange
+            // CHARMKRUNG signage visible behind the headline. Reverts
+            // to center on tablet+.
+            className="object-cover object-[50%_35%] md:object-center"
           />
         </div>
         <div
