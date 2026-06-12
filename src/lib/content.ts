@@ -277,22 +277,29 @@ export const COPY = {
     ],
 
     // Three dishes get a verified hero photo at the top of the menu.
+    // `focal` is a CSS object-position value — needed because destin-2
+    // and destin-5 are split-frame DestinAsian photos (subject in the
+    // LEFT half, second scene in the right). Default object-center
+    // crops to the seam between scenes; "25% 50%" focuses on the dish.
     featured: [
       {
         key: 'oyster',
         photo: '/images/wom-interior.jpg',
+        focal: '50% 45%',
         name: { en: 'Siamese oyster ceviche', th: 'แสร้งว่าหอยนางรม' },
         caption: { en: 'Gillardeau oyster, Thai herbs, chilli', th: 'หอยนางรม Gillardeau สมุนไพรไทย พริก' },
       },
       {
         key: 'braise',
         photo: '/images/destin-5.jpg',
+        focal: '22% 50%',
         name: { en: 'The chef\'s relish + house bread', th: 'แจ่วประจำวันกับขนมปังร้าน' },
         caption: { en: 'Slow-braised relish, fresh-baked bread', th: 'แจ่วเคี่ยวช้า ขนมปังอบเอง' },
       },
       {
         key: 'cured',
         photo: '/images/destin-2.jpg',
+        focal: '25% 50%',
         name: { en: 'Cured fish, betel leaf', th: 'ปลาบ่ม ใบชะพลู' },
         caption: { en: 'Aged fish, betel leaf, lime — the cured-rice-sausage cousin', th: 'ปลาบ่ม ใบชะพลู เลมอน' },
       },
