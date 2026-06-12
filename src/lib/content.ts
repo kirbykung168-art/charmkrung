@@ -49,9 +49,11 @@ export const BRAND = {
   addressLine2: '839 Charoen Krung Road',
   addressLine3: 'Talat Noi, Samphanthawong, Bangkok 10100',
   addressOneLine: '6th Floor, 839 Charoen Krung Road, Talat Noi, Samphanthawong, Bangkok 10100',
-  // Hours per BK Magazine + Star Wine List
-  hoursOpen:   'Mon · Thu – Sun  ·  5:30 PM – midnight',
-  hoursClosed: 'Closed Tuesday & Wednesday',
+  // Hours per Star Wine List 2026 + Wanderlog (Google Maps) +
+  // Charmkrung's own Instagram. Earlier BK Magazine and CreatorsLab
+  // reports of Tue/Wed closures appear to be stale.
+  hoursOpen:   'Daily · 6:00 PM – midnight',
+  hoursClosed: '',
   // Approximate Talat Noi coordinates — close enough for the embed.
   lat: 13.7355,
   lng: 100.5161,
@@ -392,8 +394,8 @@ export const COPY = {
       th: 'มาใช้เวลาเย็นๆ กับเรา',
     },
     body: {
-      en: 'Open Mon, Thu – Sun · 5:30 PM – midnight · Closed Tuesday & Wednesday',
-      th: 'เปิดจันทร์, พฤหัสบดี – อาทิตย์ · 17.30 น. – เที่ยงคืน · ปิดทุกอังคาร-พุธ',
+      en: 'Open daily · 6:00 PM – midnight',
+      th: 'เปิดทุกวัน · 18.00 น. – เที่ยงคืน',
     },
     policy: {
       en: 'Walk-ins welcome at the bar · tables held 15 minutes after booking.',
@@ -486,8 +488,8 @@ export const SOURCES = [
   { claim: 'Phone +66 97 994 5523',
     publication: 'Indagare Travel',
     url: 'https://indagare.com/restaurant/charmkrung' },
-  { claim: 'Hours: Mon · Thu – Sun · 5:30 PM – midnight · Closed Tuesday & Wednesday',
-    publication: 'BK Magazine + Star Wine List',
+  { claim: 'Hours: Daily · 6:00 PM – midnight',
+    publication: 'Star Wine List 2026 + Wanderlog (Google Maps) + Instagram',
     url: 'https://starwinelist.com/wine-place/charmkrung' },
   { claim: 'Chef: Aruss "Jai" Lerlerstkull (also of Charmgang)',
     publication: 'DestinAsian — "Flavor Packed" feature',
