@@ -54,7 +54,11 @@ export default function Menu() {
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     quality={88}
-                    className="object-cover object-center transition-transform duration-[2000ms] ease-elegant group-hover:scale-[1.05]"
+                    // `focal` is per-dish so DestinAsian's split-frame
+                    // photos (destin-2 / destin-5) crop to the actual
+                    // dish on the left, not the seam between scenes.
+                    style={{ objectPosition: f.focal ?? '50% 50%' }}
+                    className="object-cover transition-transform duration-[2000ms] ease-elegant group-hover:scale-[1.05]"
                   />
                   <div
                     className="absolute inset-0 pointer-events-none"
