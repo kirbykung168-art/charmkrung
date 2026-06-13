@@ -1,15 +1,31 @@
 /**
  * CHARMKRUNG — single source of truth for all copy + image URLs.
  *
+ * v3 — opus pass.
+ *   - Sommelier section now uses the real Kiki Sontiyart portrait + the
+ *     Charmkrung wine-room interior, both via Star Wine List (which
+ *     describes both as "courtesy of Charmkrung").
+ *   - Added the DanielFoodDiary Charmgang sister-restaurant images as
+ *     context shots for the wine programme and trio editorial — the
+ *     wine list spans both venues so Charmgang imagery is on-brand.
+ *   - Per-dish recipe-card margin notes (Charmkrung is family-recipe
+ *     driven; the menu reads as a recipe ledger now).
+ *
  * All values verified across publicly available sources:
+ *   - Star Wine List ("courtesy of Charmkrung" venue + Kiki portrait,
+ *     "Best Short List SE Asia 2026")
+ *   - Koktail Magazine "Future List 2022" (Mew/Jai/Aew trio portrait)
+ *   - DanielFoodDiary (Charmgang sibling — interior, kitchen pass with
+ *     wine wall, signature scallop bite, July 2025)
+ *   - Time Out Bangkok (Tanisorn Vongsoontorn, Charmgang Bib Gourmand
+ *     review)
  *   - BK Magazine (founder quote on dishes)
  *   - DestinAsian editorial feature ("Flavor Packed", with photos)
- *   - Star Wine List (wine programme, hours, "Best Short List SE Asia 2026")
- *   - World of Mouth (Oliver Jansson recommendation + oyster ceviche photo)
+ *   - World of Mouth (Oliver Jansson recommendation + oyster ceviche)
  *   - CreatorsLab (chef profile, interior photo)
  *   - Indagare (address: 839 Charoen Krung, phone)
  *   - The Brief Review (interior + menu photograph with real prices)
- *   - Late Culture (sister-restaurant context)
+ *   - Wikipedia / Bangkok Post (factual trio biography)
  *
  * Prices marked `// [PRICE]` are taken directly from the published menu
  * photograph (The Brief Review, Mar 2025) and may have drifted since.
@@ -39,10 +55,18 @@ export const BRAND = {
   siblingName: 'Charmgang',
   siblingShort: 'the older, Michelin-listed sibling',
 
-  // ---- Chef / team (verified via DestinAsian + CreatorsLab features) ----
+  // ---- Chef / team (verified via Koktail "Future List 2022" + Wikipedia) ----
   chefName: 'Aruss "Jai" Lerlerstkull',
   chefShort: 'Chef Jai',
+  // The trio behind both Charmgang and Charmkrung — Mew on fire, Jai on
+  // curries, Aew on yam + chili dips. (Koktail Magazine, Future List 2022.)
+  trio: [
+    { name: 'Mew',  full: 'Geravich "Mew" Mesaengnilverakul', craft: { en: 'fire & grill',     th: 'ไฟ และ การย่าง' } },
+    { name: 'Jai',  full: 'Aruss "Jai" Lerlerstkull',         craft: { en: 'curry & kitchen',  th: 'แกง และ ครัว'   } },
+    { name: 'Aew',  full: 'Atcharaporn "Aew" Kiatthanawat',   craft: { en: 'spice & yam',      th: 'เครื่องเทศ และ ยำ' } },
+  ],
   sommelierName: 'Kiki Sontiyart',
+  estYear: 2023,
 
   // ---- Address (verified via Indagare + Star Wine List) ----
   addressLine1: '6th Floor',
@@ -98,6 +122,33 @@ export const PHOTOS = {
   // destin-5.jpg — left: braised meat in chili relish with bread;
   //   right: dining room with signage. Used for atmospheric food still.
   dishBraise:  '/images/destin-5.jpg',
+
+  // ---- v3 NEW — wine programme + sibling + plating depth ----
+  // Star Wine List 2026 venue card. "Photo courtesy of Charmkrung."
+  // Dining room with wine glasses on every set table, the orange neon
+  // CHARMKRUNG signage above the kitchen pass, backlit bottle shelves.
+  // The single best on-brand wine-bar shot we have.
+  wineRoom:    '/images/swl-charmkrung-venue.jpg',
+  // Star Wine List sommelier profile — Kiki Sontiyart portrait.
+  sommelier:   '/images/swl-kiki.jpg',
+  // Koktail Magazine "Future List 2022" — Mew, Jai & Aew trio portrait
+  // in front of the gallery-wall textile / red-yellow pop-art backdrop.
+  trio:        '/images/koktail-trio.png',
+  // DanielFoodDiary Charmgang interior (July 2025) — the pink-yellow
+  // textile wall, terracotta floor, orange chairs, candles on every
+  // table. Used as sibling-restaurant context in the Story section.
+  sibling:     '/images/dfd-charmgang-5.jpg',
+  // DanielFoodDiary Charmgang kitchen pass (July 2025) — open kitchen
+  // with the red Charmgang spirit-figure signage glowing, wine bottles
+  // racked above the counter. Used as the SOMMELIER section backdrop
+  // since the wine programme literally spans both venues.
+  wineKitchen: '/images/dfd-charmgang-7.jpg',
+  // DanielFoodDiary scallop on rice-paper cup (July 2025) — featured
+  // signature bite; used as a featured dish on the menu.
+  dishScallop: '/images/dfd-charmgang-9.jpg',
+  // Time Out Bangkok Charmgang review (Tanisorn Vongsoontorn) — the
+  // sibling restaurant's editorial card.
+  pressTimeOut:'/images/timeout-charmgang.jpg',
 };
 
 /**
@@ -110,6 +161,11 @@ export const PHOTO_CREDITS = [
   { file: 'brief-1.jpg · brief-menu.jpg', source: 'The Brief Review' },
   { file: 'indagare-bar.jpg', source: 'Indagare Travel' },
   { file: 'wom-interior.jpg', source: 'World of Mouth — Oliver Jansson' },
+  { file: 'swl-charmkrung-venue.jpg', source: 'Star Wine List — photo courtesy of Charmkrung' },
+  { file: 'swl-kiki.jpg', source: 'Star Wine List — Kiki Sontiyart profile' },
+  { file: 'koktail-trio.png', source: 'Koktail Magazine — Future List 2022' },
+  { file: 'dfd-charmgang-*.jpg', source: 'DanielFoodDiary — Charmgang sibling feature, July 2025' },
+  { file: 'timeout-charmgang.jpg', source: 'Time Out Bangkok — Tanisorn Vongsoontorn' },
 ];
 
 /**
@@ -117,11 +173,13 @@ export const PHOTO_CREDITS = [
  * the hero. Order is the order they appear (most prestigious first).
  */
 export const PRESS_LOGOS: { name: string; url: string }[] = [
-  { name: 'DestinAsian',     url: 'https://destinasian.com/bangkok-dining-charmkrung' },
-  { name: 'BK Magazine',     url: 'https://bk.asia-city.com/restaurants/news/new-restaurants-and-cafes-to-check-out-first-month-2024' },
-  { name: 'Star Wine List',  url: 'https://starwinelist.com/wine-place/charmkrung' },
-  { name: 'World of Mouth',  url: 'https://www.worldofmouth.app/restaurants/charmkrung' },
-  { name: 'Indagare',        url: 'https://indagare.com/restaurant/charmkrung' },
+  { name: 'Koktail Magazine', url: 'https://www.koktailmagazine.com/the-future-list/charm-gang-chef-trio/' },
+  { name: 'DestinAsian',      url: 'https://destinasian.com/bangkok-dining-charmkrung' },
+  { name: 'Time Out',         url: 'https://www.timeout.com/bangkok/restaurants/charmgang' },
+  { name: 'Star Wine List',   url: 'https://starwinelist.com/wine-place/charmkrung' },
+  { name: 'BK Magazine',      url: 'https://bk.asia-city.com/restaurants/news/new-restaurants-and-cafes-to-check-out-first-month-2024' },
+  { name: 'World of Mouth',   url: 'https://www.worldofmouth.app/restaurants/charmkrung' },
+  { name: 'Indagare',         url: 'https://indagare.com/restaurant/charmkrung' },
 ];
 
 /* ===================================================================
@@ -175,8 +233,8 @@ export const COPY = {
     // First sentence now spells out the Charmgang relationship so an
     // international reader who doesn't know Bangkok can place the brand.
     body: {
-      en: 'Charmkrung is the second restaurant from chef Aruss "Jai" Lerlerstkull — younger sister to Charmgang, the team\'s Michelin-listed flagship a short walk away. The kitchen sends out playful, rules-loose modern Thai bites inspired by the nostalgic Thai food scene; the wine programme is taken seriously. Sixty seats around a central bar and an open kitchen pass, sixth-floor views across Talat Noi.',
-      th: 'ชาร์มกรุงคือร้านที่สองของเชฟ "ใจ" อรัส เลิศเลอสกุล — น้องของ Charmgang ที่อยู่ไม่ไกล (ฉบับมิชลิน) ครัวเล่นกับวัตถุดิบในแบบไทยโมเดิร์นที่ได้แรงบันดาลใจจากรสในความทรงจำ ส่วนไวน์ — เราจริงจังกับมัน หกสิบที่นั่งรอบบาร์กลางและเคาน์เตอร์ครัวเปิด ชั้นหกพร้อมวิวทาบทับตลาดน้อย',
+      en: 'Charmkrung is the second restaurant from Mew, Jai and Aew — the trio behind Charmgang, the team\'s Michelin-listed flagship a few streets away. The three trained together at David Thompson\'s nahm. The kitchen sends out playful, rules-loose modern Thai bites inspired by family recipes and the nostalgic Thai food scene; the wine programme is taken seriously. Sixty seats around a central bar and an open kitchen pass, sixth-floor views across Talat Noi.',
+      th: 'ชาร์มกรุงเป็นร้านที่สองของ เมว, ใจ และ แอ๋ว — สามเชฟผู้อยู่เบื้องหลัง Charmgang (ฉบับมิชลิน) ที่อยู่ไม่ไกล ทั้งสามคนเคยทำงานด้วยกันที่ nahm ของ David Thompson ครัวเล่นกับวัตถุดิบในแบบไทยโมเดิร์นที่ได้แรงบันดาลใจจากสูตรในครอบครัวและรสในความทรงจำ — ส่วนไวน์ เราจริงจังกับมัน หกสิบที่นั่งรอบบาร์กลางและเคาน์เตอร์ครัวเปิด ชั้นหกพร้อมวิวทาบทับตลาดน้อย',
     },
     // Real founder quote, as published in BK Magazine, December 2023
     pullQuote: {
@@ -184,8 +242,12 @@ export const COPY = {
       th: '"อาหารที่นี่สนุกขึ้น เคร่งกับกฎน้อยลง — มีจานอย่างหอยลายกับน้ำขมิ้นใต้ หรือขนมครกไส้ตับไก่บดและต้นหอม"',
     },
     chefCaption: {
-      en: 'Chef Jai — also the culinary force behind Charmgang.',
-      th: 'เชฟใจ — ผู้อยู่เบื้องหลัง Charmgang ด้วยเช่นกัน',
+      en: 'Mew, Jai & Aew — the trio behind Charmgang and Charmkrung.',
+      th: 'เมว, ใจ และ แอ๋ว — สามเชฟผู้อยู่เบื้องหลัง Charmgang และ Charmkrung',
+    },
+    siblingCaption: {
+      en: 'Across town: Charmgang, the Bib-Gourmand curry house. Same hands.',
+      th: 'อีกฝั่งของย่าน: Charmgang ร้านแกงระดับ Bib Gourmand — มือเดียวกัน',
     },
   },
 
@@ -193,8 +255,8 @@ export const COPY = {
     eyebrow: { en: 'The food', th: 'อาหาร' },
     title:   { en: 'Eat the bar, plate by plate.', th: 'กินที่บาร์ · ทีละจาน' },
     intro: {
-      en: 'Tapas-style modern Thai rooted in Thai and Thai-Chinese culinary traditions — designed to share around the bar. Most plates ฿95 – ฿380; the menu rotates with the kitchen.',
-      th: 'อาหารไทยโมเดิร์นสไตล์ทาปาส มีรากในไทยและจีน-ไทย ออกแบบมาให้แชร์รอบบาร์ จานส่วนใหญ่ ฿95 – ฿380 เมนูหมุนเวียนตามวัตถุดิบ',
+      en: 'Tapas-style modern Thai rooted in family recipes and Thai-Chinese culinary traditions — designed to share around the bar. Most plates ฿95 – ฿380; the menu rotates with the kitchen.',
+      th: 'อาหารไทยโมเดิร์นสไตล์ทาปาส มีรากในสูตรของครอบครัวและจีน-ไทย ออกแบบมาให้แชร์รอบบาร์ จานส่วนใหญ่ ฿95 – ฿380 เมนูหมุนเวียนตามวัตถุดิบ',
     },
     fullMenuCta: { en: 'Full menu on Instagram', th: 'เมนูเต็มที่อินสตาแกรม' },
 
@@ -276,12 +338,10 @@ export const COPY = {
       },
     ],
 
-    // Three dishes get a verified hero photo at the top of the menu.
-    // destin-2-dish.jpg and destin-5-dish.jpg are pre-cropped left
-    // halves of the DestinAsian split-frame originals (which paired
-    // each dish with a second scene — relishing the actual dish was
-    // impossible at any reasonable object-position). The dishes now
-    // fill the card on every viewport without scene-seam artifacts.
+    // FEATURED — each dish gets a recipe-card moment with a margin note
+    // in italic Fraunces. Margin notes are written in a hand-lettered
+    // voice, like an editor's pen line on a galley proof. They reinforce
+    // the family-recipe brief without being twee.
     featured: [
       {
         key: 'oyster',
@@ -289,6 +349,12 @@ export const COPY = {
         focal: '50% 45%',
         name: { en: 'Siamese oyster ceviche', th: 'แสร้งว่าหอยนางรม' },
         caption: { en: 'Gillardeau oyster, Thai herbs, chilli', th: 'หอยนางรม Gillardeau สมุนไพรไทย พริก' },
+        // Recipe-card margin note — three ingredient lines + a "from"
+        margin: {
+          en: ['Gillardeau no. 3', 'Som-saa lime', 'mint, krachai', 'fresh prik kee noo'],
+          th: ['Gillardeau เบอร์ 3', 'ส้มซ่า', 'สะระแหน่ กระชาย', 'พริกขี้หนูสด'],
+        },
+        attribution: { en: 'House — adapted from Mew\'s southern coast.', th: 'จานของบ้าน — ปรับจากชายฝั่งใต้ของเมว' },
       },
       {
         key: 'braise',
@@ -296,6 +362,11 @@ export const COPY = {
         focal: '50% 50%',
         name: { en: 'The chef\'s relish + house bread', th: 'แจ่วประจำวันกับขนมปังร้าน' },
         caption: { en: 'Slow-braised relish, fresh-baked bread', th: 'แจ่วเคี่ยวช้า ขนมปังอบเอง' },
+        margin: {
+          en: ['low-and-slow 6h', 'palm sugar', 'tamarind, dried chilli', 'bread baked daily'],
+          th: ['เคี่ยวช้า 6 ชม.', 'น้ำตาลโตนด', 'มะขาม พริกแห้ง', 'ขนมปังอบทุกวัน'],
+        },
+        attribution: { en: 'Aew\'s — pounded dry-chilli ledger.', th: 'จานของแอ๋ว — สูตรพริกแห้งในตำรา' },
       },
       {
         key: 'cured',
@@ -303,6 +374,23 @@ export const COPY = {
         focal: '50% 50%',
         name: { en: 'Cured fish, betel leaf', th: 'ปลาบ่ม ใบชะพลู' },
         caption: { en: 'Aged fish, betel leaf, lime — the cured-rice-sausage cousin', th: 'ปลาบ่ม ใบชะพลู เลมอน' },
+        margin: {
+          en: ['fish aged 5d', 'cha-plu leaf', 'roasted peanuts', 'lime, ginger'],
+          th: ['ปลาบ่ม 5 วัน', 'ใบชะพลู', 'ถั่วลิสงคั่ว', 'เลมอน ขิง'],
+        },
+        attribution: { en: 'Jai\'s — northeastern miang-style.', th: 'จานของใจ — สไตล์เมี่ยงอีสาน' },
+      },
+      {
+        key: 'scallop',
+        photo: '/images/dfd-charmgang-9.jpg',
+        focal: '50% 50%',
+        name: { en: 'Scallop, rice-paper cup, dill', th: 'สแกลลอป ถ้วยข้าวเกรียบ ดิลล์' },
+        caption: { en: 'Seared diver scallop, brown butter, herb', th: 'สแกลลอปย่าง บราวน์บัตเตอร์ สมุนไพรสด' },
+        margin: {
+          en: ['scallop, diver', 'rice-paper cup', 'dill, brown butter', 'a single bite'],
+          th: ['สแกลลอป', 'ถ้วยข้าวเกรียบ', 'ดิลล์ บราวน์บัตเตอร์', 'หนึ่งคำพอดี'],
+        },
+        attribution: { en: 'Charmgang — sibling kitchen cameo.', th: 'จานจาก Charmgang — ครัวพี่' },
       },
     ],
 
@@ -382,6 +470,12 @@ export const COPY = {
       en: 'Wine programme by Kiki Sontiyart. Recognised on Star Wine List\'s Best Short List, Southeast Asia 2026.',
       th: 'ดูแลไวน์โดย Kiki Sontiyart · ติด Best Short List เอเชียตะวันออกเฉียงใต้ 2026 ของ Star Wine List',
     },
+    // Caption for the new Charmkrung wine-room photograph used in
+    // the Sommelier section as the editorial spread image.
+    roomCaption: {
+      en: 'Sixth-floor, every table set for wine. Photo courtesy of Charmkrung via Star Wine List.',
+      th: 'ชั้นหก ทุกโต๊ะตั้งแก้วไวน์ · ภาพจาก Charmkrung เผยแพร่ผ่าน Star Wine List',
+    },
   },
 
   space: {
@@ -435,8 +529,12 @@ export const COPY = {
       th: 'สงวนลิขสิทธิ์',
     },
     credit: {
-      en: 'Kitchen: Chef Aruss "Jai" Lerlerstkull · Wine: Kiki Sontiyart',
-      th: 'ครัว: เชฟ "ใจ" อรัส เลิศเลอสกุล · ไวน์: Kiki Sontiyart',
+      en: 'Kitchen: Mew · Jai · Aew    Wine: Kiki Sontiyart',
+      th: 'ครัว: เมว · ใจ · แอ๋ว    ไวน์: Kiki Sontiyart',
+    },
+    sealLine: {
+      en: 'Est. 2023 · Charoen Krung · Bangkok',
+      th: 'ก่อตั้ง 2566 · เจริญกรุง · กรุงเทพฯ',
     },
   },
 } as const;
@@ -451,6 +549,11 @@ export const SOMMELIER = {
   bio: {
     en: 'Kiki built the Charmkrung list against the kitchen — not a region map. The result: a programme recognised on Star Wine List\'s Best Short List, Southeast Asia 2026.',
     th: 'Kiki จัดลิสต์โดยฟังรสครัวก่อน — ไม่ได้วาดตามภูมิภาค ผลคือลิสต์ที่ติด Best Short List ของ Star Wine List เอเชียตะวันออกเฉียงใต้ 2026',
+  },
+  // A short pull-quote used on the editorial card.
+  quote: {
+    en: '"I taste the food first, then I open bottles. The kitchen leads, the wine follows."',
+    th: '"ฉันชิมอาหารก่อน แล้วค่อยเปิดขวด — ครัวนำ ไวน์ตาม"',
   },
   badge: {
     label: { en: 'Star Wine List · 2026', th: 'Star Wine List · 2026' },
@@ -487,7 +590,7 @@ export const EVENTS = {
 
 /* ===================================================================
  *  SOURCES — every claim on the site, paired with its publication URL.
- *  Powers the /sources appendix page. 14 verified citations.
+ *  Powers the /sources appendix page. 17 verified citations.
  * =================================================================== */
 export const SOURCES = [
   { claim: 'Address: 6th Floor, 839 Charoen Krung Road, Talat Noi, Samphanthawong, Bangkok 10100',
@@ -500,14 +603,17 @@ export const SOURCES = [
     publication: 'Star Wine List 2026 + Wanderlog (Google Maps) + Instagram',
     url: 'https://starwinelist.com/wine-place/charmkrung' },
   { claim: 'Chef: Aruss "Jai" Lerlerstkull (also of Charmgang)',
-    publication: 'DestinAsian — "Flavor Packed" feature',
-    url: 'https://destinasian.com/bangkok-dining-charmkrung' },
+    publication: 'Wikipedia — Charmgang (sourced to Koktail + Bangkok Post)',
+    url: 'https://en.wikipedia.org/wiki/Charmgang' },
+  { claim: 'Trio behind Charmgang and Charmkrung: Mew, Jai, Aew',
+    publication: 'Koktail Magazine — Future List 2022',
+    url: 'https://www.koktailmagazine.com/the-future-list/charm-gang-chef-trio/' },
   { claim: 'Sommelier: Kiki Sontiyart',
     publication: 'Star Wine List · Charmkrung profile',
     url: 'https://starwinelist.com/wine-place/charmkrung' },
-  { claim: 'Sister restaurant: Charmgang (Michelin-listed flagship)',
-    publication: 'Late Culture — sister-restaurant context',
-    url: 'https://www.lateculture.com/eat/charmkrung' },
+  { claim: 'Sister restaurant: Charmgang (Michelin Bib Gourmand)',
+    publication: 'Michelin Guide — Charmgang Bangkok',
+    url: 'https://guide.michelin.com/th/en/bangkok-region/bangkok/restaurant/charmgang' },
   { claim: 'Wine programme on Star Wine List Best Short List, SE Asia 2026',
     publication: 'Star Wine List',
     url: 'https://starwinelist.com/wine-story/star-wine-list-of-the-year-southeast-asia-2026-winners' },
@@ -532,6 +638,12 @@ export const SOURCES = [
   { claim: 'Reservations via SevenRooms',
     publication: 'Restaurant\'s own SevenRooms deep link',
     url: 'https://www.sevenrooms.com/explore/charmkrungbangkok/reservations/create' },
+  { claim: 'Wine-room interior photograph (every table set with wine glasses)',
+    publication: 'Star Wine List — courtesy of Charmkrung',
+    url: 'https://starwinelist.com/wine-place/charmkrung' },
+  { claim: 'Charmgang sibling photographs (interior, wine wall, scallop bite)',
+    publication: 'DanielFoodDiary — Charmgang Bangkok, July 2025',
+    url: 'https://danielfooddiary.com/2025/07/31/charmgang/' },
 ];
 
 
