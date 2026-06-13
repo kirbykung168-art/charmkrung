@@ -4,6 +4,7 @@ import PressStrip from '@/components/PressStrip';
 import BrandMarquee from '@/components/BrandMarquee';
 import Stats from '@/components/Stats';
 import Story from '@/components/Story';
+import NeonDivider from '@/components/NeonDivider';
 import Menu from '@/components/Menu';
 import Wine from '@/components/Wine';
 import Sommelier from '@/components/Sommelier';
@@ -16,15 +17,15 @@ import Footer from '@/components/Footer';
 /**
  * Charmkrung — single-page site.
  *
- * Section order (v2 — sales-closing pass):
- *   Hero → PressStrip → BrandMarquee → Stats → Story → Menu → Wine →
- *   Sommelier credit + SWL '26 badge → Space → Private Events →
- *   Reserve → Visit → Footer
+ * Section order (v3 — opus pass):
+ *   Hero → PressStrip → BrandMarquee → Stats → Story →
+ *   NeonDivider (orange CHARMKRUNG wordmark) →
+ *   Menu → Wine → Sommelier (real Kiki + room photo) →
+ *   Space → Private Events → Reserve → Visit → Footer (wax seal)
  *
- * Sommelier sits directly after Wine (so the wine list reads as
- * curated, not decorative). Events sits before Reserve so corporate
- * planners see private-event capacity before they're funneled to
- * the consumer reservation flow.
+ * NeonDivider sits between Story and Menu so the page changes register
+ * from chef narrative to the actual cooking — using the venue's
+ * recognisable orange neon wordmark.
  */
 export default function HomePage() {
   return (
@@ -35,6 +36,7 @@ export default function HomePage() {
       <BrandMarquee />
       <Stats />
       <Story />
+      <NeonDivider />
       <Menu />
       <Wine />
       <Sommelier />
