@@ -11,16 +11,10 @@ import CursorCandle from './CursorCandle';
 /**
  * HERO — full-viewport candle-lit factory loft.
  *
- * Layout fixes vs previous version:
- *  - Title max-width relaxed to 22ch — the previous 18ch was forcing
- *    awkward wraps on EN copy and causing letters to feel cramped.
- *  - Line height eased from 1.02 → 1.08 so animated letters don't
- *    visually crowd the line above/below during reveal.
- *  - Subtitle mt-8 → mt-10 for breathing room between title baseline
- *    and body copy. Title is also shorter copy now ("Nostalgic Thai,
- *    reimagined.") with the secondary clause moved to the body.
- *  - Parallax transforms eased from y=14% to y=8% and scale 1→1.04
- *    (was 1.06) so the scroll-tied movement isn't fighting Lenis.
+ * v3 push: a small neon-orange wordmark accent floats below the title
+ * before the body copy, picking up the venue's actual orange CHARMKRUNG
+ * neon signage. Layered text-shadows mimic neon halation. Kept tiny and
+ * single-line so it ornaments rather than competing with the headline.
  */
 export default function Hero() {
   const { locale } = useLocale();
@@ -57,11 +51,6 @@ export default function Hero() {
             priority
             sizes="100vw"
             quality={88}
-            // object-position is responsive — on portrait mobile the
-            // photo is heavily cropped at the sides, so we shift the
-            // focal point up a touch (35% from top) to keep the orange
-            // CHARMKRUNG signage visible behind the headline. Reverts
-            // to center on tablet+.
             className="object-cover object-[50%_35%] md:object-center"
           />
         </div>
@@ -106,11 +95,45 @@ export default function Hero() {
           lang={locale}
         />
 
+        {/* Neon orange wordmark accent — picks up the venue's actual
+            CHARMKRUNG neon signage. Single-line, candle-flicker
+            animated so it reads as light, not a logo. */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 1.4, ease: [0.22, 0.61, 0.36, 1] }}
+          className="mt-7 flex items-center gap-4"
+          aria-hidden
+        >
+          <span
+            className="block w-12 h-px"
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(255,140,60,0.6))' }}
+          />
+          <span
+            className="display italic candle-flicker tracking-[0.06em]"
+            style={{
+              fontSize: 14,
+              color: '#FFB05A',
+              textShadow: [
+                '0 0 6px rgba(255,140,60,0.85)',
+                '0 0 18px rgba(255,120,40,0.6)',
+                '0 0 38px rgba(220, 70, 30, 0.4)',
+              ].join(', '),
+            }}
+          >
+            歡 城 · CHARMKRUNG
+          </span>
+          <span
+            className="block w-12 h-px"
+            style={{ background: 'linear-gradient(270deg, transparent, rgba(255,140,60,0.6))' }}
+          />
+        </motion.div>
+
         <motion.p
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 1.6, ease: [0.22, 0.61, 0.36, 1] }}
-          className="font-sans text-[14.5px] text-cream/85 leading-relaxed max-w-2xl mt-10"
+          className="font-sans text-[14.5px] text-cream/85 leading-relaxed max-w-2xl mt-7"
           lang={locale}
           style={{ textShadow: '0 1px 12px rgba(0,0,0,0.6)' }}
         >

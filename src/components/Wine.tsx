@@ -6,14 +6,17 @@ import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
 /**
- * WINE — two-column wine + cocktails treatment.
+ * WINE — wine + cocktails editorial.
  *
- * Left column: section header, body copy, programme TAGS (Natural / Classic /
- * Large-format / Old World leaning), then a photo of the duck dish paired
- * with the Foillard Morgon (the only real producer we can show on-page).
- *
- * Right column: a short "on the list (a sample)" bottle list + signature
- * cocktails. This shows the wine programme is not just decoration.
+ * v3 push (opus pass):
+ *   - The duck/Foillard photo stays (real bottle on the table) but now
+ *     lives as a small inset card next to a larger asymmetric layout.
+ *   - The TAGS row visually anchors with a leading vertical brass tick.
+ *   - The bottle list switches to italic Fraunces names + uppercase
+ *     region eyebrows for stronger editorial hierarchy.
+ *   - A short "we work the room" caption block has been added between
+ *     bottles and cocktails so the section reads as written copy not
+ *     a database dump.
  */
 export default function Wine() {
   const { locale } = useLocale();
@@ -51,19 +54,23 @@ export default function Wine() {
             </p>
           </Reveal>
 
-          {/* TAG ROW */}
+          {/* TAG ROW with leading brass tick — anchors the tags as a
+              category bar, not bunched chips. */}
           <Reveal delay={0.1}>
-            <ul className="flex flex-wrap gap-2.5">
-              {w.tags.map((t, i) => (
-                <li
-                  key={i}
-                  className="font-sans text-[10.5px] uppercase tracking-[0.32em] text-brass border border-brass/35 px-3 py-2"
-                  lang={locale}
-                >
-                  {t[locale]}
-                </li>
-              ))}
-            </ul>
+            <div className="flex items-stretch gap-3">
+              <span aria-hidden className="block w-px self-stretch bg-brass/55" />
+              <ul className="flex flex-wrap gap-2.5">
+                {w.tags.map((t, i) => (
+                  <li
+                    key={i}
+                    className="font-sans text-[10.5px] uppercase tracking-[0.32em] text-brass border border-brass/35 px-3 py-2"
+                    lang={locale}
+                  >
+                    {t[locale]}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Reveal>
 
           {/* DUCK + MORGON photo — the one in-frame real bottle */}
@@ -77,6 +84,10 @@ export default function Wine() {
                 quality={88}
                 className="object-cover object-center"
               />
+              {/* Brass corner brackets — match the recipe cards on the
+                  menu so the visual language is consistent */}
+              <span className="absolute pointer-events-none" style={{ top: 10, left: 10, width: 22, height: 22, borderTop: '1.2px solid #B08D4C', borderLeft: '1.2px solid #B08D4C' }} />
+              <span className="absolute pointer-events-none" style={{ bottom: 10, right: 10, width: 22, height: 22, borderBottom: '1.2px solid #B08D4C', borderRight: '1.2px solid #B08D4C' }} />
             </figure>
             <figcaption className="font-sans text-[11px] uppercase tracking-[0.28em] text-cream/55 mt-4">
               Pairing · Foillard Morgon Côte du Py 2021
@@ -103,13 +114,13 @@ export default function Wine() {
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <div>
-                    <h4 className="display text-[18px] leading-tight">
+                    <h4 className="display italic text-[19px] leading-tight">
                       {b.name}
                     </h4>
-                    <p className="font-sans text-[11.5px] uppercase tracking-[0.22em] text-brass/85 mt-1.5" lang={locale}>
+                    <p className="font-sans text-[10.5px] uppercase tracking-[0.32em] text-brass/85 mt-2" lang={locale}>
                       {b.region[locale]}
                     </p>
-                    <p className="font-sans text-[12.5px] leading-[1.7] text-cream/70 mt-1.5" lang={locale}>
+                    <p className="font-sans text-[12.5px] leading-[1.7] text-cream/70 mt-2" lang={locale}>
                       {b.notes[locale]}
                     </p>
                     {'pick' in b && b.pick && (
@@ -123,7 +134,20 @@ export default function Wine() {
             </ul>
           </Reveal>
 
-          <Reveal delay={0.18}>
+          {/* Inter-section editorial caption — distinguishes the page
+              from a database dump of bottles. */}
+          <Reveal delay={0.16}>
+            <p
+              className="font-sans text-[12px] uppercase tracking-[0.32em] text-cream/55 leading-[1.7] border-l-2 border-brass/45 pl-4"
+              lang={locale}
+            >
+              {locale === 'en'
+                ? 'We work the room. Tell us how spicy you like things, and what you don\'t drink — Kiki will pour from there.'
+                : 'เราอ่านห้อง · บอกเราว่าคุณชอบเผ็ดแค่ไหน และไม่ดื่มอะไร — Kiki จะรินจากตรงนั้น'}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.2}>
             <h3 className="font-sans text-[10.5px] uppercase tracking-[0.48em] text-brass border-b border-[var(--rule-soft)] pb-4 mb-7" lang={locale}>
               {w.cocktailsLabel[locale]}
             </h3>
@@ -140,7 +164,7 @@ export default function Wine() {
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <div>
-                    <h4 className="display text-[18px] leading-tight" lang={locale}>
+                    <h4 className="display italic text-[18px] leading-tight" lang={locale}>
                       {c.name[locale]}
                     </h4>
                     <p className="font-sans text-[12px] tracking-[0.04em] text-cream/65 mt-1" lang={locale}>
@@ -152,7 +176,7 @@ export default function Wine() {
             </ul>
           </Reveal>
 
-          <Reveal delay={0.22}>
+          <Reveal delay={0.24}>
             <p
               className="font-sans text-[11px] uppercase tracking-[0.32em] text-brass leading-[1.7]"
               lang={locale}

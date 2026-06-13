@@ -1,6 +1,7 @@
 'use client';
 
-import { BRAND, COPY } from '@/lib/content';
+import Image from 'next/image';
+import { BRAND, COPY, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
@@ -8,9 +9,9 @@ import Reveal from './Reveal';
  * Koktail trio image — delivered through wsrv.nl (free Cloudflare-backed
  * image proxy that does on-the-fly resize + WebP conversion).
  *
- * `output=webp` cuts the original 1.9 MB Koktail PNG to roughly 80 KB at
- * 640w and 200 KB at 1290w. Same upstream URL, multiple sizes via the
- * `w=` param so a srcSet can hand the browser the right one.
+ * v3: now committed locally too (PHOTOS.trio), but the upstream wsrv
+ * route is kept as primary because it serves a more aggressively
+ * compressed WebP than the local PNG.
  */
 const KOKTAIL_UPSTREAM = encodeURIComponent(
   'https://www.koktailmagazine.com/wp-content/uploads/2024/10/resized/c859bf773fea73baf4f9987737b5c2aa-1290x916.png',
@@ -24,17 +25,17 @@ const KOKTAIL_TRIO = {
 };
 
 /**
- * STORY — cream editorial section. Chef Trio portrait card on the left,
- * brand voice + pull-quote on the right.
+ * STORY — editorial section with the trio portrait + named credits +
+ * sibling-restaurant context shot.
  *
- * Portrait: the Koktail Magazine "Future List 2022" trio shot of Mew,
- * Jai & Aew — the actual founding team behind Charmgang (and therefore
- * Charmkrung). Served via the /api/koktail-trio edge proxy rather than
- * a committed binary so the page can point at a same-origin URL without
- * shipping a copy of the photograph in the repo.
- *
- * Credit reads "Photo · Koktail Magazine · Future List 2022" — confirm
- * permission with the publisher before any paid client engagement.
+ * v3 push (opus pass):
+ *   - Adds a named ledger under the trio photo listing each chef's
+ *     craft (fire, curry, spice) — sourced from Koktail's Future List
+ *     2022 piece. The site now reads as "three named hands", not "Chef
+ *     Jai and others".
+ *   - Adds a sibling-restaurant card (Charmgang interior from
+ *     DanielFoodDiary). Spells out the family relationship visually.
+ *   - Keeps the editorial press-card frame on the main portrait.
  */
 export default function Story() {
   const { locale } = useLocale();
@@ -42,9 +43,9 @@ export default function Story() {
   return (
     <section id="story" className="relative bg-cream text-espresso py-28 lg:py-40 paper-grain">
       <div className="mx-auto max-w-[1320px] px-6 lg:px-10 grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-24 items-start">
-        {/* Chef trio portrait — editorial press card */}
+        {/* LEFT — chef trio portrait + named-craft ledger + sibling card */}
         <Reveal>
-          <figure className="max-w-[460px]">
+          <figure className="max-w-[480px]">
             <div
               className="relative overflow-hidden"
               style={{
@@ -61,7 +62,7 @@ export default function Story() {
                     Plate I
                   </p>
                   <p className="font-sans text-[8.5px] uppercase tracking-[0.32em] text-espresso/55 mt-1">
-                    The Charmgang trio
+                    The Charmgang trio · Koktail Magazine
                   </p>
                 </div>
                 <span
@@ -71,20 +72,6 @@ export default function Story() {
                 />
               </div>
 
-              {/* Photo with brass corner brackets + warm vignette.
-                  Aspect ratio is responsive: portrait 4:5 on phones so
-                  the three figures stay readable (they sit in the
-                  lower-mid of the source image, so object-position
-                  shifts down to crop the gallery wall above them),
-                  reverts to native 1290:916 landscape on tablet+.
-
-                  Image delivery: routed through wsrv.nl (Cloudflare
-                  Workers, no signup, free) which resizes and converts
-                  to WebP on the fly. The original Koktail PNG is
-                  1.9 MB — wsrv shrinks that to ~80 KB at 640w WebP
-                  for mobile. Falls back to /api/koktail-trio if wsrv
-                  is unreachable (the <picture> source order means the
-                  browser tries WebP first). */}
               <div className="relative aspect-[4/5] md:aspect-[1290/916] overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -97,7 +84,7 @@ export default function Story() {
                   className="absolute inset-0 w-full h-full object-cover object-[50%_62%] md:object-center"
                   style={{ filter: 'contrast(1.04) saturate(0.94)' }}
                 />
-                {/* Warm vignette — pulls the gallery wall into the brand palette */}
+                {/* Warm vignette */}
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
@@ -105,15 +92,9 @@ export default function Story() {
                       'linear-gradient(180deg, rgba(26,22,20,0.12) 0%, rgba(26,22,20,0) 24%, rgba(26,22,20,0) 70%, rgba(26,22,20,0.35) 100%), radial-gradient(120% 80% at 50% 45%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.16) 100%)',
                   }}
                 />
-                {/* Brass corner brackets — the credential card frame */}
-                <span
-                  className="absolute pointer-events-none"
-                  style={{ top: 10, left: 10, width: 22, height: 22, borderTop: '1.2px solid #B08D4C', borderLeft: '1.2px solid #B08D4C' }}
-                />
-                <span
-                  className="absolute pointer-events-none"
-                  style={{ bottom: 10, right: 10, width: 22, height: 22, borderBottom: '1.2px solid #B08D4C', borderRight: '1.2px solid #B08D4C' }}
-                />
+                {/* Brass corner brackets */}
+                <span className="absolute pointer-events-none" style={{ top: 10, left: 10, width: 22, height: 22, borderTop: '1.2px solid #B08D4C', borderLeft: '1.2px solid #B08D4C' }} />
+                <span className="absolute pointer-events-none" style={{ bottom: 10, right: 10, width: 22, height: 22, borderBottom: '1.2px solid #B08D4C', borderRight: '1.2px solid #B08D4C' }} />
               </div>
 
               {/* Signature ledger — chefs' names + house */}
@@ -128,6 +109,26 @@ export default function Story() {
                   Charmgang &middot; Charmkrung
                 </p>
               </div>
+
+              {/* Named craft ledger — three rows, one per chef */}
+              <dl className="mt-4 border-t border-brass/30 pt-3 grid grid-cols-3 gap-2 text-center">
+                {BRAND.trio.map((t) => (
+                  <div key={t.name}>
+                    <dt
+                      className="display italic text-espresso"
+                      style={{ fontSize: 16 }}
+                    >
+                      {t.name}
+                    </dt>
+                    <dd
+                      className="font-sans text-[9.5px] uppercase tracking-[0.22em] text-brass-deep mt-1 leading-tight"
+                      lang={locale}
+                    >
+                      {t.craft[locale]}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </div>
 
             <figcaption className="font-sans text-[12px] uppercase tracking-[0.28em] text-brass-deep mt-5" lang={locale}>
@@ -136,9 +137,38 @@ export default function Story() {
             <p className="font-sans text-[10px] uppercase tracking-[0.28em] text-brass-deep/55 mt-2">
               Photo · Koktail Magazine · Future List 2022
             </p>
+
+            {/* SIBLING CARD — Charmgang interior, asymmetric stacked
+                under the trio. Spells out "same hands, two rooms". */}
+            <div className="mt-10 relative">
+              <p className="font-sans text-[9.5px] uppercase tracking-[0.32em] text-brass-deep mb-3">
+                Sibling · Charmgang
+              </p>
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image
+                  src={PHOTOS.sibling}
+                  alt="Charmgang — the trio's older Bib Gourmand sibling on Soi Nakhon Kasem, with the pink-yellow textile wall and terracotta floor"
+                  fill
+                  sizes="(max-width: 1024px) 92vw, 40vw"
+                  quality={86}
+                  className="object-cover object-center"
+                />
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{ background: 'linear-gradient(180deg, rgba(26,22,20,0) 60%, rgba(26,22,20,0.50) 100%)' }}
+                />
+              </div>
+              <p className="font-sans text-[11.5px] leading-[1.6] text-espresso/70 mt-3" lang={locale}>
+                {COPY.story.siblingCaption[locale]}
+              </p>
+              <p className="font-sans text-[9.5px] uppercase tracking-[0.28em] text-espresso/40 mt-1">
+                Photo · DanielFoodDiary, July 2025
+              </p>
+            </div>
           </figure>
         </Reveal>
 
+        {/* RIGHT — narrative + pull-quote */}
         <Reveal delay={0.15}>
           <p className="eyebrow text-brass-deep">{COPY.story.eyebrow[locale]}</p>
           <h2

@@ -6,21 +6,29 @@ import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
 /**
- * MENU — proper restaurant-menu treatment.
+ * MENU — recipe-card editorial treatment.
  *
- * 1. Three "featured" dishes at the top with REAL verified photos.
- * 2. Below that, the actual printed menu (Small Bites + Medium Plates)
- *    in two editorial columns — names, descriptions, prices.
+ * v3 (opus pass): the previous version was a competent grid of three
+ * featured cards + two columns of items. This version pushes harder:
  *
- * Photography is restricted to dishes we can verify; the rest of the
- * menu reads as a real restaurant card, not stock-photo cards.
+ *   (1) Featured dishes are recipe cards — each has a margin note in
+ *       italic Fraunces with the actual ingredient list, an attribution
+ *       line ("Mew's — fire-grilled scallop"), an indexed PLATE number,
+ *       and a brass corner-bracket framing the photo. Reads like a
+ *       page from a chef's ledger, not a stock card grid.
+ *
+ *   (2) The featured grid alternates orientation: cards 1 & 3 have the
+ *       margin note on the LEFT of the photo; cards 2 & 4 on the RIGHT.
+ *       Breaks the rigid centre-and-three grid.
+ *
+ *   (3) Each card has a small rotated "PLATE n" ledger tag.
  */
 export default function Menu() {
   const { locale } = useLocale();
   const m = COPY.menu;
 
   return (
-    <section id="menu" className="relative bg-espresso text-cream py-28 lg:py-40">
+    <section id="menu" className="relative bg-espresso text-cream py-28 lg:py-40 paper-grain">
       <div className="mx-auto max-w-[1480px] px-6 lg:px-10">
         {/* Section header */}
         <div className="grid lg:grid-cols-[1fr_1fr] gap-12 mb-16 items-end">
@@ -42,43 +50,31 @@ export default function Menu() {
           </Reveal>
         </div>
 
-        {/* FEATURED DISHES — three verified photos */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-7 mb-20 lg:mb-28">
+        {/* FEATURED — alternating recipe-card layout (asymmetric) */}
+        <div className="space-y-12 lg:space-y-16 mb-20 lg:mb-28">
           {m.featured.map((f, i) => (
-            <Reveal key={f.key} delay={i * 0.07}>
-              <figure className="group">
-                <div className="relative aspect-[4/5] overflow-hidden bg-espresso-soft warm-sweep">
-                  <Image
-                    src={f.photo}
-                    alt={`${f.name.en} at Charmkrung, Bangkok — ${f.caption.en.toLowerCase()}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    quality={88}
-                    // `focal` is per-dish so DestinAsian's split-frame
-                    // photos (destin-2 / destin-5) crop to the actual
-                    // dish on the left, not the seam between scenes.
-                    style={{ objectPosition: f.focal ?? '50% 50%' }}
-                    className="object-cover transition-transform duration-[2000ms] ease-elegant group-hover:scale-[1.05]"
-                  />
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        'linear-gradient(180deg, rgba(26,22,20,0) 0%, rgba(26,22,20,0) 55%, rgba(26,22,20,0.6) 100%)',
-                    }}
-                  />
-                </div>
-                <figcaption className="pt-5">
-                  <h3 className="display italic text-[24px] leading-tight" lang={locale}>
-                    {f.name[locale]}
-                  </h3>
-                  <p className="font-sans text-[12px] uppercase tracking-[0.22em] text-cream/55 mt-2" lang={locale}>
-                    {f.caption[locale]}
-                  </p>
-                </figcaption>
-              </figure>
-            </Reveal>
+            <RecipeCard
+              key={f.key}
+              index={i + 1}
+              photo={f.photo}
+              focal={f.focal}
+              name={f.name[locale]}
+              caption={f.caption[locale]}
+              ingredients={f.margin[locale]}
+              attribution={f.attribution[locale]}
+              flip={i % 2 === 1}
+            />
           ))}
+        </div>
+
+        {/* Brass divider — separates the editorial showcase from the
+            full menu card below. */}
+        <div className="flex items-center gap-4 mb-14">
+          <span aria-hidden className="flex-1 h-px bg-brass/30" />
+          <p className="font-sans text-[10.5px] uppercase tracking-[0.48em] text-brass" lang={locale}>
+            {locale === 'en' ? 'The full card' : 'เมนูเต็ม'}
+          </p>
+          <span aria-hidden className="flex-1 h-px bg-brass/30" />
         </div>
 
         {/* THE ACTUAL MENU — two columns */}
@@ -113,6 +109,128 @@ export default function Menu() {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+/**
+ * RecipeCard — single editorial featured-dish entry. Photo + margin
+ * note column with handwritten-feel ingredient list + attribution line.
+ * The `flip` prop swaps left/right placement so cards alternate.
+ */
+function RecipeCard({
+  index,
+  photo,
+  focal,
+  name,
+  caption,
+  ingredients,
+  attribution,
+  flip,
+}: {
+  index: number;
+  photo: string;
+  focal?: string;
+  name: string;
+  caption: string;
+  ingredients: readonly string[];
+  attribution: string;
+  flip: boolean;
+}) {
+  const plate = String(index).padStart(2, '0');
+
+  return (
+    <Reveal>
+      <article
+        className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-6 md:gap-10 lg:gap-14 items-center"
+        style={{ direction: flip ? 'rtl' : 'ltr' }}
+      >
+        {/* LEFT (or RIGHT) — margin note: handwritten ingredient list */}
+        <div style={{ direction: 'ltr' }} className="relative">
+          {/* Indexed PLATE tag — small rotated brass label */}
+          <span
+            className="font-sans text-[10px] uppercase tracking-[0.42em] text-brass inline-block"
+            style={{ transform: 'rotate(-3deg)', transformOrigin: 'left center' }}
+          >
+            Plate · {plate}
+          </span>
+
+          <h3
+            className="display italic leading-[1.05] mt-4"
+            style={{ fontSize: 'clamp(26px, 3vw, 44px)', letterSpacing: '-0.01em' }}
+          >
+            {name}
+          </h3>
+
+          <p className="font-sans text-[12.5px] uppercase tracking-[0.22em] text-brass/85 mt-3">
+            {caption}
+          </p>
+
+          {/* Recipe-ledger ingredient list — italic Fraunces, hand-set
+              with offset margins to feel pencil-jotted */}
+          <ul className="mt-6 space-y-1.5 max-w-[28ch]">
+            {ingredients.map((ing, j) => (
+              <li
+                key={j}
+                className="display italic text-cream/80 leading-[1.4]"
+                style={{
+                  fontSize: 17,
+                  paddingLeft: `${(j % 3) * 8}px`,
+                }}
+              >
+                <span
+                  aria-hidden
+                  className="inline-block mr-2 align-middle"
+                  style={{
+                    width: 14,
+                    height: 1,
+                    background: '#B08D4C',
+                    opacity: 0.55,
+                  }}
+                />
+                {ing}
+              </li>
+            ))}
+          </ul>
+
+          {/* Attribution line — like a margin signature */}
+          <p
+            className="display italic text-brass mt-6 max-w-[30ch]"
+            style={{ fontSize: 14, transform: 'rotate(-1deg)', transformOrigin: 'left top' }}
+          >
+            — {attribution}
+          </p>
+        </div>
+
+        {/* RIGHT (or LEFT) — photo with brass corner bracket frame */}
+        <div style={{ direction: 'ltr' }}>
+          <figure className="relative">
+            <div className="relative aspect-[5/4] overflow-hidden warm-sweep group">
+              <Image
+                src={photo}
+                alt={`${name} at Charmkrung — ${caption.toLowerCase()}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={88}
+                style={{ objectPosition: focal ?? '50% 50%' }}
+                className="object-cover transition-transform duration-[1800ms] ease-elegant group-hover:scale-[1.04]"
+              />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(26,22,20,0) 60%, rgba(26,22,20,0.55) 100%)',
+                }}
+              />
+              {/* Brass corner brackets — frame like a ledger card */}
+              <span className="absolute pointer-events-none" style={{ top: 10, left: 10, width: 26, height: 26, borderTop: '1.2px solid #B08D4C', borderLeft: '1.2px solid #B08D4C' }} />
+              <span className="absolute pointer-events-none" style={{ top: 10, right: 10, width: 26, height: 26, borderTop: '1.2px solid #B08D4C', borderRight: '1.2px solid #B08D4C' }} />
+              <span className="absolute pointer-events-none" style={{ bottom: 10, left: 10, width: 26, height: 26, borderBottom: '1.2px solid #B08D4C', borderLeft: '1.2px solid #B08D4C' }} />
+              <span className="absolute pointer-events-none" style={{ bottom: 10, right: 10, width: 26, height: 26, borderBottom: '1.2px solid #B08D4C', borderRight: '1.2px solid #B08D4C' }} />
+            </div>
+          </figure>
+        </div>
+      </article>
+    </Reveal>
   );
 }
 

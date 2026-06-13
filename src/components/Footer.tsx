@@ -2,15 +2,21 @@
 
 import { BRAND, COPY, NAV_ITEMS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
+import WaxSeal from './WaxSeal';
 
 /**
  * FOOTER — small, quiet, anchors repeated, social icons, copyright.
+ *
+ * v3: adds the brass WaxSeal terminator. The seal serves as the
+ * editorial sign-off — distinguishes the footer from a generic
+ * warm-Thai restaurant template and reinforces the family-recipe-
+ * ledger brand voice.
  */
 export default function Footer() {
   const { locale } = useLocale();
   return (
     <footer className="relative bg-espresso text-cream border-t border-[var(--rule-soft)] pt-16 pb-10">
-      <div className="mx-auto max-w-[1480px] px-6 lg:px-10 grid lg:grid-cols-[1.4fr_1fr_1fr] gap-12 items-start">
+      <div className="mx-auto max-w-[1480px] px-6 lg:px-10 grid lg:grid-cols-[1.4fr_1fr_1fr_auto] gap-12 items-start">
         <div>
           <a
             href="#top"
@@ -47,6 +53,14 @@ export default function Footer() {
           <a href={BRAND.facebookUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.24em] text-cream/75 hover:text-brass transition-colors duration-300">Facebook</a>
           <a href={BRAND.linktreeUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.24em] text-cream/75 hover:text-brass transition-colors duration-300">Linktree</a>
           <a href={`mailto:${BRAND.email}`} className="font-sans text-[12.5px] uppercase tracking-[0.24em] text-cream/75 hover:text-brass transition-colors duration-300">{BRAND.email}</a>
+        </div>
+
+        {/* WAX SEAL — distinctive editorial terminator */}
+        <div className="flex flex-col items-center lg:items-end gap-3 candle-flicker">
+          <WaxSeal size={128} />
+          <p className="font-sans text-[10px] uppercase tracking-[0.32em] text-cream/50" lang={locale}>
+            {COPY.footer.sealLine[locale]}
+          </p>
         </div>
       </div>
 
