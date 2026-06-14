@@ -14,6 +14,8 @@ const config: Config = {
         'espresso-soft': '#241F1B',
         'cream-soft': '#E9DFCB',
         'brass-deep': '#8C6F38',
+        // Lighter brass — used for hover states (e.g. /sources)
+        'brass-light': '#D8B57A',
       },
       fontFamily: {
         display: ['var(--font-fraunces)', 'Fraunces', 'Georgia', 'serif'],
@@ -31,6 +33,7 @@ const config: Config = {
         'fade-up': 'fadeUp 1.0s cubic-bezier(0.22, 0.61, 0.36, 1) forwards',
         'fade-in': 'fadeIn 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards',
         'draw-rule': 'drawRule 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards',
+        'marquee-x': 'marqueeX 38s linear infinite',
       },
       keyframes: {
         fadeUp: {
@@ -44,6 +47,10 @@ const config: Config = {
         drawRule: {
           '0%':   { transform: 'scaleX(0)' },
           '100%': { transform: 'scaleX(1)' },
+        },
+        marqueeX: {
+          '0%':   { transform: 'translate3d(0,0,0)' },
+          '100%': { transform: 'translate3d(-33.3333%,0,0)' },
         },
       },
     },
