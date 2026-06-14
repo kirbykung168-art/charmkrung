@@ -196,7 +196,7 @@ export default function Story() {
             <span className="text-brass ml-1">&rdquo;</span>
           </blockquote>
           <p className="display italic text-[14px] text-brass-deep mt-4" lang={locale}>
-            — {BRAND.chefShort}, {BRAND.chefName.split(' ').slice(-1)[0]}
+            — {BRAND.chefShort} · Charmkrung
           </p>
         </Reveal>
       </div>

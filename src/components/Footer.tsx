@@ -11,6 +11,10 @@ import WaxSeal from './WaxSeal';
  * editorial sign-off — distinguishes the footer from a generic
  * warm-Thai restaurant template and reinforces the family-recipe-
  * ledger brand voice.
+ *
+ * v4 (launch pass): adds /sources discovery link + a quiet
+ * tribute-site disclosure under copyright so the legal posture is
+ * clear (this is an unofficial fan/tribute site).
  */
 export default function Footer() {
   const { locale } = useLocale();
@@ -33,7 +37,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <nav className="flex flex-col gap-3">
+        <nav className="flex flex-col gap-3" aria-label="Footer navigation">
           <p className="eyebrow text-brass mb-2">Browse</p>
           {NAV_ITEMS.map((item) => (
             <a
@@ -45,6 +49,12 @@ export default function Footer() {
               {item.label[locale]}
             </a>
           ))}
+          <a
+            href="/sources"
+            className="font-sans text-[12.5px] uppercase tracking-[0.24em] text-cream/75 hover:text-brass transition-colors duration-300 mt-1"
+          >
+            Sources & Citations
+          </a>
         </nav>
 
         <div className="flex flex-col gap-3">
@@ -71,6 +81,18 @@ export default function Footer() {
         <p lang={locale} className="text-center">{COPY.footer.credit[locale]}</p>
         <p lang={locale} className="md:text-right text-center">{BRAND.addressLine2}</p>
       </div>
+
+      {/* Tribute / disclosure line — quiet, italic Fraunces, small.
+          Spells out that this is an editorial / tribute site so the
+          legal posture is unambiguous before launch. */}
+      <p
+        className="mx-auto max-w-[1480px] px-6 lg:px-10 mt-6 display italic text-[11px] leading-relaxed text-cream/40 text-center"
+        lang={locale}
+      >
+        {locale === 'en'
+          ? 'An editorial tribute site celebrating the work of the Charmkrung team. Photography credited to the press features that supplied each image; see Sources for full citations.'
+          : 'เว็บไซต์ฉบับบรรณาธิการที่จัดทำขึ้นเพื่อชื่นชมผลงานของทีม Charmkrung · ภาพถ่ายให้เครดิตตามสื่อต้นทาง · ดูรายการอ้างอิงทั้งหมดที่หน้า Sources'}
+      </p>
     </footer>
   );
 }
